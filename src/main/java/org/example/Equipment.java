@@ -19,4 +19,6 @@ public class Equipment {
     public int getID(){
         return ID;
     }
+
+
 }
