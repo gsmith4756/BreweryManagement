@@ -7,6 +7,7 @@ public class Main {
 
     public static ArrayList<FermentationVessel> fvList = new ArrayList<FermentationVessel>();
     public static ArrayList<MashTun> mtList = new ArrayList<MashTun>();
+    public static ArrayList<CanningLine> clList = new ArrayList<CanningLine>();
 
     public static ArrayList<Equipment> equipmentList = new ArrayList<Equipment>();
 
@@ -20,8 +21,9 @@ public class Main {
         System.out.println("Great! How many mash tuns?");
         createEquipment(myObj.nextInt(), "MT");
         myObj.nextLine();
-        String input = null;
-        while(input !="exit") {
+
+        String input = "";
+        while(!input.equalsIgnoreCase("exit")) {
             System.out.println("Which equipment list would you like to view? (FV/MT/all)");
             input = myObj.nextLine();
             listEquipment(input);
@@ -38,6 +40,10 @@ public class Main {
                 case "MT":
                     mtList.add(new MashTun());
                     break;
+                case "CL":
+                    clList.add(new CanningLine());
+                    break;
+
                 default:
 
             }

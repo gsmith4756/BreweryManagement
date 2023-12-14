@@ -1,6 +1,7 @@
 package org.example;
+import java.util.*;
 
-public class Ingredient {
+public abstract class Ingredient {
     private double quantity;
     private double price;
     private String type;
@@ -9,5 +10,37 @@ public class Ingredient {
         this.quantity = quantity;
         this.price = price;
         this.type = type;
+    }
+
+    public void setQuantity(double newQuantity){
+        quantity = newQuantity;
+    }
+
+    public double getQuantity(){
+        return quantity;
+    }
+
+    public void addQuantity(double amountToAdd){
+        quantity += amountToAdd;
+    }
+
+    public void removeQuantity(double amountToRemove){
+        quantity -= amountToRemove;
+    }
+
+    public void setPrice(double newPrice){
+        quantity = newPrice;
+    }
+
+    public double getPrice(){
+        return price;
+    }
+
+    public void addPrice(double amountToAdd){
+        price += amountToAdd;
+    }
+
+    public String getType(){
+        return type;
     }
 }
