@@ -1,6 +1,8 @@
-package org.example;
+package org.example.brewerymanagement.ingredients;
 
-public class Malt extends Ingredient{
+import org.example.brewerymanagement.ingredients.Ingredient;
+
+public class Malt extends Ingredient {
 
     String variety;
     String colour;

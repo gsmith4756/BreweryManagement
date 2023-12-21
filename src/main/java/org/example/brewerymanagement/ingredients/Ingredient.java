@@ -1,4 +1,4 @@
-package org.example;
+package org.example.brewerymanagement.ingredients;
 import java.util.*;
 
 public abstract class Ingredient {

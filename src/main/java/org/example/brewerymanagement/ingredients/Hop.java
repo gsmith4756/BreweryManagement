@@ -1,7 +1,8 @@
-package org.example;
+package org.example.brewerymanagement.ingredients;
+
 import java.util.*;
 
-public class Hop extends Ingredient{
+public class Hop extends Ingredient {
 
     List<Hop> list = new ArrayList<Hop>();
 

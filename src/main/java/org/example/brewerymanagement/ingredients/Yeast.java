@@ -1,6 +1,8 @@
-package org.example;
+package org.example.brewerymanagement.ingredients;
 
-public class Yeast extends Ingredient{
+import org.example.brewerymanagement.ingredients.Ingredient;
+
+public class Yeast extends Ingredient {
 
     String strain;
     String format;

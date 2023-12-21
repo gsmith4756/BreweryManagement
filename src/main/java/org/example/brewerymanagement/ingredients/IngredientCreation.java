@@ -1,4 +1,4 @@
-package org.example;
+package org.example.brewerymanagement.ingredients;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,28 @@ public class IngredientCreation {
     static Scanner scanner = new Scanner(System.in);
 
    public static void creationMethod(){
+       //Request input for which type of Ingredient to create
+       System.out.println("Which type of equipment do you want to create?");
+       System.out.println("1. Fermentation Vessel");
+       System.out.println("2. Mash Tun");
+       System.out.println("3. Canning Line");
+
+       int choice = scanner.nextInt();
+
+       switch (choice) {
+           case 1:
+               createHop();
+               break;
+           case 2:
+               createYeast();
+               break;
+           case 3:
+               createMalt();
+               break;
+           default:
+               System.out.println("Invalid choice");
+               break;
+       }
 
 
    }
@@ -43,7 +65,7 @@ public class IngredientCreation {
         }
     }
 
-    public void createYeast(){
+    public static void createYeast(){
 
 
 
@@ -72,7 +94,7 @@ public class IngredientCreation {
         }
     }
 
-    public void createMalt() {
+    public static void createMalt() {
         System.out.println("Enter the number of malt strains to create:");
         int numOfMalts = scanner.nextInt();
 
