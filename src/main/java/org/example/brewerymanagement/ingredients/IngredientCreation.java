@@ -67,9 +67,6 @@ public class IngredientCreation {
 
     public static void createYeast(){
 
-
-
-
         System.out.println("Enter the number of yeast strains to create:");
         int numOfHops = scanner.nextInt();
 

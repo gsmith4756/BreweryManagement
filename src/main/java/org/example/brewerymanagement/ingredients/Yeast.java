@@ -9,7 +9,7 @@ public class Yeast extends Ingredient {
 
     Yeast(String strain,double quantity,double price,String format){
         super(quantity,price,"Yeast");
-        this.strain=strain;
+        this.strain = strain;
         this.format = format;
     }
 

@@ -4,7 +4,7 @@ import org.example.brewerymanagement.equipment.Equipment;
 
 public class MashTun extends Equipment {
 
-    MashTun(){
+    public MashTun(){
         super("MT");
     }
 }

@@ -42,20 +42,30 @@ public class EquipmentCreation {
         int numOfVessels = scanner.nextInt();
 
         for (int i = 0; i < numOfVessels; i++) {
-            System.out.println("Enter vessel ID for fermentation vessel " + (i + 1) + ":");
-            String vesselId = scanner.next();
 
-
-
-            fermentationVesselList.add(new FermentationVessel(vesselId /*, other attributes */));
+            fermentationVesselList.add(new FermentationVessel());
         }
     }
 
     public static void createMashTun() {
+        System.out.println("Enter the number of mash tuns to create:");
+        int numOfMashTuns = scanner.nextInt();
+
+        for (int i = 0; i < numOfMashTuns; i++) {
+
+            mashTunList.add(new MashTun());
+        }
 
     }
 
     public static void createCanningLine() {
+        System.out.println("Enter the number of canning lines to create:");
+        int numOfCanningLines = scanner.nextInt();
+
+        for (int i = 0; i < numOfCanningLines; i++) {
+
+            canningLineList.add(new CanningLine());
+        }
 
     }
 }

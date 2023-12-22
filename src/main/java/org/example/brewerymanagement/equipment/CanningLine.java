@@ -2,7 +2,7 @@ package org.example.brewerymanagement.equipment;
 
 public class CanningLine extends Equipment {
 
-    CanningLine(){
+    public CanningLine(){
         super("CL");
     }
 

@@ -11,6 +11,7 @@ public class Equipment {
     private int quantity = 0;
 
     Equipment(String type){
+        inUse = false;
         ID = ++count;
         this.type = type;
 
