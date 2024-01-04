@@ -1,5 +1,8 @@
 package org.example.brewerymanagement.ingredients;
 
+import org.example.brewerymanagement.dbconnection.*;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -12,7 +15,7 @@ public class IngredientCreation {
 
     static Scanner scanner = new Scanner(System.in);
 
-   public static void creationMethod(){
+   public void creationMethod() throws SQLException {
        //Request input for which type of Ingredient to create
        System.out.println("Which type of equipment do you want to create?");
        System.out.println("1. Fermentation Vessel");
@@ -39,11 +42,14 @@ public class IngredientCreation {
 
    }
 
-   public static void createHop(){
+   public void createHop() throws SQLException {
 
 
         System.out.println("Enter the number of hops to create:");
         int numOfHops = scanner.nextInt();
+
+        //Connect to DB
+        HopDAO hopDAO = new HopDAO(DBConnection.getConnection());
 
         for (int i = 0; i < numOfHops; i++) {
             System.out.println("Enter variety for hop " + (i + 1) + ":");
@@ -62,6 +68,10 @@ public class IngredientCreation {
             int IBU = scanner.nextInt();
 
             hopsList.add(new Hop(variety,quantity, price, harvestDate, IBU));
+
+            //Add hop to DB
+            hopDAO.create(new Hop(variety,quantity, price, harvestDate, IBU));
+
         }
     }
 
