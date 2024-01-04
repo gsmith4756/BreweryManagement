@@ -18,7 +18,7 @@ public class HopDAO {
 
     // CREATE
     public void create(Hop hop) throws SQLException {
-        String insertQuery = "INSERT INTO hops (variety, quantity, price, harvestDate, IBU) " +
+        String insertQuery = "INSERT INTO hops (name, quantity, price, harvestDate, IBU) " +
                 "VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(insertQuery)) {
             statement.setString(1, hop.getName());

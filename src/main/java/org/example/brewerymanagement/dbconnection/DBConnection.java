@@ -4,7 +4,7 @@ import java.util.*;
 
 public class DBConnection {
 
-    private static final String URL= "jdbc:mysql://localhost:3306/BreweryManagement";;
+    private static final String URL= "jdbc:mysql://localhost:3306/brewery_management";;
     private static String username;
     private static String password;
 
@@ -17,6 +17,7 @@ public class DBConnection {
             username = scanner.next();
             System.out.println("DB password: ");
             password = scanner.next();
+
             Class.forName("com.mysql.cj.jdbc.Driver");
             return DriverManager.getConnection(URL, username, password);
         } catch(ClassNotFoundException | SQLException e){

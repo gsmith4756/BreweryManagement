@@ -1,5 +1,6 @@
 package org.example.brewerymanagement;
 
+import org.example.brewerymanagement.dbconnection.TableCreator;
 import org.example.brewerymanagement.equipment.CanningLine;
 import org.example.brewerymanagement.equipment.Equipment;
 import org.example.brewerymanagement.equipment.FermentationVessel;
@@ -7,6 +8,7 @@ import org.example.brewerymanagement.equipment.MashTun;
 import org.example.brewerymanagement.ingredients.IngredientCreation;
 import org.example.brewerymanagement.equipment.EquipmentCreation;
 
+import java.sql.SQLException;
 import java.util.*;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
@@ -14,9 +16,12 @@ import java.util.*;
 public class Main {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
 
+
+        IngredientCreation ic = new IngredientCreation();
+        ic.createHop();
 
 
 

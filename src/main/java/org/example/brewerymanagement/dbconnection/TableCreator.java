@@ -42,15 +42,17 @@ public class TableCreator {
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
                 "name VARCHAR(255)," +
                 "quantity DOUBLE," +
-                "price DOUBLE" +
+                "price DOUBLE," +
+                "harvestDate VARCHAR(255)," +
+                "IBU INT" +
                 ");";
 
         //Connect to mySQL and create table with above parameters
 
         try (Connection connection = DBConnection.getConnection();
              Statement statement = connection.createStatement()) {
-            statement.executeUpdate(createTableSQL);
-            System.out.println("Table created successfully");
+             statement.executeUpdate(createTableSQL);
+             System.out.println("Table created successfully");
         } catch (SQLException e) {
             System.err.println("Error creating table: " + e.getMessage());
         }

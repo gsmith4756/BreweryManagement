@@ -53,24 +53,24 @@ public class IngredientCreation {
 
         for (int i = 0; i < numOfHops; i++) {
             System.out.println("Enter variety for hop " + (i + 1) + ":");
-            String variety = scanner.next();
+            String name = scanner.next();
 
-            System.out.println("Enter quantity for hop " + variety + ":");
+            System.out.println("Enter quantity for hop " + name + ":");
             double quantity = scanner.nextDouble();
 
-            System.out.println("Enter price for hop " + variety + ":");
+            System.out.println("Enter price for hop " + name + ":");
             double price = scanner.nextDouble();
 
-            System.out.println("Enter harvest date for hop " + variety + ":");
+            System.out.println("Enter harvest date for hop " + name + ":");
             String harvestDate = scanner.next();
 
-            System.out.println("Enter IBU for hop " + variety + ":");
+            System.out.println("Enter IBU for hop " + name + ":");
             int IBU = scanner.nextInt();
 
-            hopsList.add(new Hop(variety,quantity, price, harvestDate, IBU));
+            hopsList.add(new Hop(name,quantity, price, harvestDate, IBU));
 
             //Add hop to DB
-            hopDAO.create(new Hop(variety,quantity, price, harvestDate, IBU));
+            hopDAO.create(new Hop(name,quantity, price, harvestDate, IBU));
 
         }
     }
