@@ -1,10 +1,28 @@
 package org.example.brewerymanagement.dbconnection;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class TableCreator {
+
+    public static void createTables(Connection connection) throws SQLException {
+        String checkTablesSQL = "SHOW TABLES;";
+
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(checkTablesSQL);
+
+
+        String [] tableList = new String[6];
+        int count = 1;
+
+        while(resultSet.next()){
+            System.out.println(resultSet.getString(count));
+            tableList[count]=resultSet.getString(count);
+            count++;
+        }
+    }
     public static void createIngredientsTable() {
         String createTableSQL = "CREATE TABLE ingredients (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY," +

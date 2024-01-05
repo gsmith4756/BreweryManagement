@@ -4,6 +4,7 @@ import java.util.*;
 
 public class DBConnection {
 
+    //Could make dynamic
     private static final String URL= "jdbc:mysql://localhost:3306/brewery_management";;
     private static String username;
     private static String password;
