@@ -4,11 +4,16 @@ import org.example.brewerymanagement.ingredients.Ingredient;
 
 public class Malt extends Ingredient {
 
-    String variety;
-    String colour;
-    Malt(String variety, double quantity,double price,String colour){
+    private String name;
+    private String colour;
+    public Malt(String name, double quantity,double price,String colour){
         super(quantity,price,"Malt");
-        this.variety=variety;
+        this.name=name;
         this.colour=colour;
+    }
+
+    //Getters
+    public String getName(){
+        return name;
     }
 }
