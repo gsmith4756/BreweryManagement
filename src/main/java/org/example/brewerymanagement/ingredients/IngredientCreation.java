@@ -35,10 +35,10 @@ public class IngredientCreation {
                createHop(connection);
                break;
            case 2:
-               createYeast();
+               createYeast(connection);
                break;
            case 3:
-               createMalt();
+               createMalt(connection);
                break;
            default:
                System.out.println("Invalid choice");
@@ -81,7 +81,9 @@ public class IngredientCreation {
         }
     }
 
-    public static void createYeast(){
+    public static void createYeast(Connection connection) throws SQLException {
+
+       YeastDAO yeastDAO = new YeastDAO(connection);
 
         System.out.println("Enter the number of yeast strains to create:");
         int numOfHops = scanner.nextInt();
@@ -100,15 +102,17 @@ public class IngredientCreation {
             System.out.println("Enter format for yeast " + strain + ":");
             String format = scanner.next();
 
-            yeastList.add(new Yeast(strain,quantity,price,format));
+            yeastDAO.create(new Yeast(strain,quantity,price,format));
 
 
 
         }
     }
 
-    public static void createMalt() {
-        System.out.println("Enter the number of malt strains to create:");
+    public static void createMalt(Connection connection) throws SQLException {
+
+       MaltDAO maltDAO = new MaltDAO(connection);
+        System.out.println("Enter the number of malt types to create:");
         int numOfMalts = scanner.nextInt();
 
         for (int i = 0; i < numOfMalts; i++) {
@@ -124,7 +128,10 @@ public class IngredientCreation {
             System.out.println("Enter format for malt " + strain + ":");
             String format = scanner.next();
 
-            maltList.add(new Malt(strain, quantity, price, format));
+
+            maltDAO.create(new Malt(strain, quantity, price, format));
+
+
         }
     }
 

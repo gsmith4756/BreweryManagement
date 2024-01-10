@@ -77,7 +77,7 @@ public class TableCreator {
 
     }
 
-    public static void createYeastTable() {
+    public static void createYeastTable(Connection connection) {
         String createTableSQL = "CREATE TABLE yeast (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
                 "name VARCHAR(255)," +
@@ -88,7 +88,7 @@ public class TableCreator {
 
         //Connect to mySQL and create table with above parameters
 
-        try (Connection connection = DBConnection.getConnection();
+        try (
              Statement statement = connection.createStatement()) {
              statement.executeUpdate(createTableSQL);
              System.out.println("Table created successfully");
@@ -98,18 +98,18 @@ public class TableCreator {
 
     }
 
-    public static void createMaltTable() {
+    public static void createMaltTable(Connection connection) {
         String createTableSQL = "CREATE TABLE malt (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
-                "name VARCHAR(255)," +
+                "type VARCHAR(255)," +
                 "quantity DOUBLE," +
-                "colour VARCHAR(255)" +
-                "price DOUBLE" +
+                "price DOUBLE," +
+                "format VARCHAR(255)" +
                 ");";
 
         //Connect to mySQL and create table with above parameters
 
-        try (Connection connection = DBConnection.getConnection();
+        try (
              Statement statement = connection.createStatement()) {
              statement.executeUpdate(createTableSQL);
              System.out.println("Table created successfully");
