@@ -30,10 +30,8 @@ public class Main {
         //Connect to DB and assign to connection variable
         connection = DBConnection.getConnection();
 
-        TableCreator.createMaltTable(connection);
-        IngredientCreation.creationMethod(connection);
 
-
+        //IngredientCreation.creationMethod(connection);
 
         SwingUtilities.invokeLater(() -> new UIClass(connection));
 

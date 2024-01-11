@@ -35,7 +35,7 @@ public class YeastDAO {
     //CRUD methods
 
     public void create(Yeast yeast) throws SQLException {
-        String query = "INSERT INTO yeast (ID, strain, quantity, price, format) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO yeast (strain, quantity, price, format) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, yeast.getStrain());

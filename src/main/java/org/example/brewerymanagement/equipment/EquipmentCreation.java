@@ -1,8 +1,14 @@
 package org.example.brewerymanagement.equipment;
 
+import org.example.brewerymanagement.dbconnection.FVDAO;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class EquipmentCreation {
 
@@ -12,7 +18,7 @@ public class EquipmentCreation {
 
     static Scanner scanner = new Scanner(System.in);
 
-    public static void creationMethod() {
+    public static void creationMethod(Connection connection) throws SQLException {
         //Request input for which type of Equipment to create
         System.out.println("Which type of equipment do you want to create?");
         System.out.println("1. Fermentation Vessel");
@@ -23,7 +29,7 @@ public class EquipmentCreation {
 
         switch (choice) {
             case 1:
-                createFermentationVessel();
+                createFermentationVessel(connection);
                 break;
             case 2:
                 createMashTun();
@@ -37,13 +43,18 @@ public class EquipmentCreation {
         }
     }
 
-    public static void createFermentationVessel() {
+    public static void createFermentationVessel(Connection connection) throws SQLException {
         System.out.println("Enter the number of fermentation vessels to create:");
         int numOfVessels = scanner.nextInt();
+        System.out.println("Enter the date of purchase:");
+        String dateOfPurchase = scanner.next();
+        System.out.println("Enter the capacity:");
+        int capacity = scanner.nextInt();
+
+        FVDAO fvDAO = new FVDAO(connection);
 
         for (int i = 0; i < numOfVessels; i++) {
-
-            fermentationVesselList.add(new FermentationVessel());
+            fvDAO. createFermentationVessel(new FermentationVessel(dateOfPurchase,capacity));
         }
     }
 

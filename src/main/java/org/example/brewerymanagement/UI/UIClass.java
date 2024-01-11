@@ -54,20 +54,25 @@ public class UIClass extends JFrame {
                     }
                     data.add(row);
 
-                    JTable tableComponent = new JTable(data, columnNames);
-                    JScrollPane scrollPane = new JScrollPane(tableComponent);
-                    JPanel tablePanel = new JPanel();
-                    tablePanel.add(scrollPane);
-                    panel.add(tablePanel);
+
                 }
 
-                //create individual components and add to JTable
+                // Create individual components and add to JTable
                 JTable tableComponent = new JTable(data, columnNames);
                 JScrollPane scrollPane = new JScrollPane(tableComponent);
-                JPanel tablePanel = new JPanel();
-                tablePanel.setLayout(new BoxLayout(tablePanel, BoxLayout.Y_AXIS));
-                tablePanel.add(scrollPane);
-                add(new JScrollPane(tablePanel));
+
+                // Create individual panel and configure layout
+                JPanel tablePanel = new JPanel(new BorderLayout());
+                JLabel titleLabel = new JLabel(table);
+                titleLabel.setHorizontalAlignment(SwingConstants.LEFT);
+                titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+
+                // Add title label and scroll pane to the panel
+                tablePanel.add(titleLabel, BorderLayout.NORTH);
+                tablePanel.add(scrollPane, BorderLayout.CENTER);
+
+                // Add the configured panel to the main frame
+                add(tablePanel);
             }
 
 
@@ -76,9 +81,6 @@ public class UIClass extends JFrame {
             }
 
 
-
-
-        getContentPane().add(panel);
         setVisible(true);
         }
 

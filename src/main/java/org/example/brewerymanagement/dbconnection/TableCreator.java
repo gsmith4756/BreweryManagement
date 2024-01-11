@@ -80,7 +80,7 @@ public class TableCreator {
     public static void createYeastTable(Connection connection) {
         String createTableSQL = "CREATE TABLE yeast (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
-                "name VARCHAR(255)," +
+                "strain VARCHAR(255)," +
                 "quantity DOUBLE," +
                 "format VARCHAR(255)," +
                 "price DOUBLE" +
@@ -113,6 +113,66 @@ public class TableCreator {
              Statement statement = connection.createStatement()) {
              statement.executeUpdate(createTableSQL);
              System.out.println("Table created successfully");
+        } catch (SQLException e) {
+            System.err.println("Error creating table: " + e.getMessage());
+        }
+
+    }
+
+    public static void createFVTable(Connection connection) {
+        String createTableSQL = "CREATE TABLE fermentationVessel (" +
+                "id INT AUTO_INCREMENT PRIMARY KEY," +
+                "name VARCHAR(255)," +
+                "inUse TINYINT(1)," +
+                "capacity DOUBLE," +
+                "dateOfPurchase VARCHAR(255)" +
+                ");";
+
+        // Connect to MySQL and create table with above parameters
+
+        try (
+                Statement statement = connection.createStatement()) {
+            statement.executeUpdate(createTableSQL);
+            System.out.println("Table created successfully");
+        } catch (SQLException e) {
+            System.err.println("Error creating table: " + e.getMessage());
+        }
+    }
+
+    public static void createMTTable(Connection connection) {
+        String createTableSQL = "CREATE TABLE fermentationVessel (" +
+                "id INT AUTO_INCREMENT PRIMARY KEY," +
+                "name VARCHAR(255)," +
+                "inUse TINYINT(1)," +
+                "dateOfPurchase VARCHAR(255)" +
+                ");";
+
+        //Connect to mySQL and create table with above parameters
+
+        try (
+                Statement statement = connection.createStatement()) {
+            statement.executeUpdate(createTableSQL);
+            System.out.println("Table created successfully");
+        } catch (SQLException e) {
+            System.err.println("Error creating table: " + e.getMessage());
+        }
+
+    }
+
+    public static void createCLTable(Connection connection) {
+        String createTableSQL = "CREATE TABLE fermentationVessel (" +
+                "id INT AUTO_INCREMENT PRIMARY KEY," +
+                "name VARCHAR(255)," +
+                "inUse TINYINT(1)," +
+                "dateOfPurchase VARCHAR(255)" +
+                ");";
+
+        //Connect to mySQL and create table with above parameters
+
+        try (
+                Statement statement = connection.createStatement()) {
+            statement.executeUpdate(createTableSQL);
+            System.out.println("Table created successfully");
         } catch (SQLException e) {
             System.err.println("Error creating table: " + e.getMessage());
         }
