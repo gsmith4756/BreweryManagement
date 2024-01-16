@@ -1,6 +1,8 @@
 package org.example.brewerymanagement.equipment;
 
+import org.example.brewerymanagement.dbconnection.CLDAO;
 import org.example.brewerymanagement.dbconnection.FVDAO;
+import org.example.brewerymanagement.dbconnection.MTDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,7 @@ public class EquipmentCreation {
     static Scanner scanner = new Scanner(System.in);
 
     public static void creationMethod(Connection connection) throws SQLException {
-        //Request input for which type of Equipment to create
+        //Request input for which type of Equipment to create (to be replaced with UI)
         System.out.println("Which type of equipment do you want to create?");
         System.out.println("1. Fermentation Vessel");
         System.out.println("2. Mash Tun");
@@ -32,10 +34,10 @@ public class EquipmentCreation {
                 createFermentationVessel(connection);
                 break;
             case 2:
-                createMashTun();
+                createMashTun(connection);
                 break;
             case 3:
-                createCanningLine();
+                createCanningLine(connection);
                 break;
             default:
                 System.out.println("Invalid choice");
@@ -54,28 +56,40 @@ public class EquipmentCreation {
         FVDAO fvDAO = new FVDAO(connection);
 
         for (int i = 0; i < numOfVessels; i++) {
-            fvDAO. createFermentationVessel(new FermentationVessel(dateOfPurchase,capacity));
+            fvDAO.create(new FermentationVessel(dateOfPurchase,capacity));
         }
     }
 
-    public static void createMashTun() {
+    public static void createMashTun(Connection connection) {
         System.out.println("Enter the number of mash tuns to create:");
         int numOfMashTuns = scanner.nextInt();
 
+        MTDAO mtDAO = new MTDAO(connection);
+
+        System.out.println("Enter the date of purchase:");
+        String dateOfPurchase = scanner.next();
+        System.out.println("Enter the capacity:");
+        int capacity = scanner.nextInt();
+
         for (int i = 0; i < numOfMashTuns; i++) {
 
-            mashTunList.add(new MashTun());
+            mtDAO.create(new MashTun(dateOfPurchase,capacity));
         }
 
     }
 
-    public static void createCanningLine() {
+    public static void createCanningLine(Connection connection) throws SQLException {
         System.out.println("Enter the number of canning lines to create:");
         int numOfCanningLines = scanner.nextInt();
 
+        CLDAO clDAO = new CLDAO(connection);
+
+        System.out.println("Enter the date of purchase:");
+        String dateOfPurchase = scanner.next();
+
         for (int i = 0; i < numOfCanningLines; i++) {
 
-            canningLineList.add(new CanningLine());
+            clDAO.create(new CanningLine(dateOfPurchase));
         }
 
     }

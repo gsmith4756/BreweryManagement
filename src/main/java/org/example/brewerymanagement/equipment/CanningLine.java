@@ -21,4 +21,5 @@ public class CanningLine extends Equipment {
         this.containerType=containerType;
     }
 
+
 }

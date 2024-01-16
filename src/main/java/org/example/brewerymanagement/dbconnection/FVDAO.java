@@ -16,7 +16,7 @@ public class FVDAO {
     }
 
     //CRUD methods
-    public void createFermentationVessel(FermentationVessel fv) throws SQLException {
+    public void create(FermentationVessel fv) throws SQLException {
         String insertSQL = "INSERT INTO fermentation_vessels (type, date_of_purchase, capacity) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(insertSQL)) {
             statement.setString(1, fv.getType());
@@ -44,7 +44,7 @@ public class FVDAO {
     }
 
 
-    public void updateFermentationVessel(FermentationVessel fv) throws SQLException {
+    public void update(FermentationVessel fv) throws SQLException {
         String updateSQL = "UPDATE fermentation_vessels SET type=?, date_of_purchase=?, capacity=? WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(updateSQL)) {
             statement.setString(1, fv.getType());
@@ -55,7 +55,7 @@ public class FVDAO {
         }
     }
 
-    public void deleteFermentationVessel(int id) throws SQLException {
+    public void delete(int id) throws SQLException {
         String deleteSQL = "DELETE FROM fermentation_vessels WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(deleteSQL)) {
             statement.setInt(1, id);
