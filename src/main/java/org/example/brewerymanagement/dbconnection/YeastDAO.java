@@ -38,7 +38,7 @@ public class YeastDAO {
         String query = "INSERT INTO yeast (strain, quantity, price, format) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, yeast.getStrain());
+            preparedStatement.setString(1, yeast.getName());
             preparedStatement.setDouble(2, yeast.getQuantity());
             preparedStatement.setDouble(3, yeast.getPrice());
             preparedStatement.setString(4, yeast.getFormat());

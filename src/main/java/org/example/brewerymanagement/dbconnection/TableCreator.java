@@ -80,7 +80,7 @@ public class TableCreator {
     public static void createYeastTable(Connection connection) {
         String createTableSQL = "CREATE TABLE yeast (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
-                "strain VARCHAR(255)," +
+                "name VARCHAR(255)," +
                 "quantity DOUBLE," +
                 "format VARCHAR(255)," +
                 "price DOUBLE" +
@@ -101,7 +101,7 @@ public class TableCreator {
     public static void createMaltTable(Connection connection) {
         String createTableSQL = "CREATE TABLE malt (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
-                "type VARCHAR(255)," +
+                "name VARCHAR(255)," +
                 "quantity DOUBLE," +
                 "price DOUBLE," +
                 "format VARCHAR(255)" +
@@ -120,7 +120,7 @@ public class TableCreator {
     }
 
     public static void createFVTable(Connection connection) {
-        String createTableSQL = "CREATE TABLE fermentationVessel (" +
+        String createTableSQL = "CREATE TABLE fermentationVessels (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
                 "name VARCHAR(255)," +
                 "inUse TINYINT(1)," +
@@ -128,7 +128,7 @@ public class TableCreator {
                 "dateOfPurchase VARCHAR(255)" +
                 ");";
 
-        // Connect to MySQL and create table with above parameters
+        //Connect to MySQL and create table with above parameters
 
         try (
                 Statement statement = connection.createStatement()) {
@@ -140,7 +140,7 @@ public class TableCreator {
     }
 
     public static void createMTTable(Connection connection) {
-        String createTableSQL = "CREATE TABLE fermentationVessel (" +
+        String createTableSQL = "CREATE TABLE mashTuns (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
                 "name VARCHAR(255)," +
                 "inUse TINYINT(1)," +
@@ -160,7 +160,7 @@ public class TableCreator {
     }
 
     public static void createCLTable(Connection connection) {
-        String createTableSQL = "CREATE TABLE fermentationVessel (" +
+        String createTableSQL = "CREATE TABLE canningLines (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
                 "name VARCHAR(255)," +
                 "inUse TINYINT(1)," +

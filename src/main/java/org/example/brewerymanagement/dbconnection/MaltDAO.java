@@ -19,7 +19,7 @@ public class MaltDAO {
              ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
 
-                String type = resultSet.getString("type");
+                String type = resultSet.getString("name");
                 double quantity = resultSet.getDouble("quantity");
                 double price = resultSet.getDouble("price");
                 String format = resultSet.getString("format");
@@ -35,7 +35,7 @@ public class MaltDAO {
     //CRUD methods
 
     public void create(Malt malt) throws SQLException {
-        String query = "INSERT INTO malt (type, quantity, price, format) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO malt (name, quantity, price, format) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, malt.getName());
@@ -48,7 +48,7 @@ public class MaltDAO {
     }
 
     public void update(Malt malt) throws SQLException {
-        String query = "UPDATE malt SET type = ?, quantity = ?, price = ?, format = ? WHERE type = ?";
+        String query = "UPDATE malt SET name = ?, quantity = ?, price = ?, format = ? WHERE type = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, malt.getName());
@@ -61,7 +61,7 @@ public class MaltDAO {
     }
 
     public void delete(String strain) throws SQLException {
-        String query = "DELETE FROM malt WHERE type = ?";
+        String query = "DELETE FROM malt WHERE name = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, strain);

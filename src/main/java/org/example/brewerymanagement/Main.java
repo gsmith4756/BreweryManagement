@@ -31,7 +31,7 @@ public class Main {
         connection = DBConnection.getConnection();
 
 
-        //IngredientCreation.creationMethod(connection);
+
 
         SwingUtilities.invokeLater(() -> new UIClass(connection));
 
