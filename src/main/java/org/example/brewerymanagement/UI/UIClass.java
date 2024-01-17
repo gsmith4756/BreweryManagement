@@ -17,7 +17,7 @@ public class UIClass extends JFrame {
 
         setTitle("Brewery Management");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900, 400);
+        setSize(900, 800);
         setLayout(new GridLayout(0,1));
 
 
@@ -34,17 +34,14 @@ public class UIClass extends JFrame {
         mainPanel.add(ingredientPanel,BorderLayout.WEST);
         mainPanel.add(equipmentPanel,BorderLayout.EAST);
 
-        //create buttons
-        JButton addButton = new JButton("Add");
+        //create brew button
         JButton brewButton = new JButton("Brew");
 
-        //create listeners for buttons
-        addButton.addActionListener(e -> addButtonListener());
+        //create listener for brew button
         brewButton.addActionListener(e -> brewButtonListener());
 
-        // Panel to hold the buttons
+        //panel to hold the buttons
         JPanel buttonPanel = new JPanel(new FlowLayout());
-        buttonPanel.add(addButton);
         buttonPanel.add(brewButton);
         mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -66,9 +63,12 @@ public class UIClass extends JFrame {
 
         //fetch + display data
         for (int i = 0; i < tables.length; i++) {
+            //make index variable final so lambda function can use it
+            final int currentIndex = i;
+
             try {
                 Statement statement = connection.createStatement();
-                ResultSet results = statement.executeQuery("SELECT * FROM " + tables[i]);
+                ResultSet results = statement.executeQuery("SELECT * FROM " + tables[currentIndex]);
                 ResultSetMetaData metaData = results.getMetaData();
 
                 int columnCount = metaData.getColumnCount();
@@ -91,11 +91,17 @@ public class UIClass extends JFrame {
                 JScrollPane scrollPane = new JScrollPane(tableComponent);
 
                 //add table title
-                JLabel tableLabel = new JLabel(titles[i + 1]);
+                JLabel tableLabel = new JLabel(titles[currentIndex + 1]);
                 tableLabel.setHorizontalAlignment(SwingConstants.LEFT);
                 tableLabel.setFont(new Font("Arial", Font.BOLD, 16));
                 innerPanel.add(tableLabel);
                 innerPanel.add(scrollPane);
+
+                //add individual add buttons + respective listeners
+                JButton addButton = new JButton("Add");
+                addButton.addActionListener(e -> addButtonListener(titles[currentIndex + 1]));
+                innerPanel.add(addButton);
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -115,8 +121,9 @@ public class UIClass extends JFrame {
         new BrewWindow(connection);
     }
 
-    private void addButtonListener() {
-        new AddWindow();
+    private void addButtonListener(String tableName) {
+        System.out.println(tableName);
+        new AddWindow(tableName);
     }
 
 
