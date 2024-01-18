@@ -3,10 +3,11 @@ package org.example.brewerymanagement.equipment;
 public class CanningLine extends Equipment {
 
     private String containerType;
-    private String dateOfPurchase;
 
-    public CanningLine(String dateOfPurchase){
-        super("CL",dateOfPurchase);
+
+    public CanningLine(String dateOfPurchase,String containerType){
+        super("Canning Line",dateOfPurchase);
+        this.containerType=containerType;
     }
 
     //Getters

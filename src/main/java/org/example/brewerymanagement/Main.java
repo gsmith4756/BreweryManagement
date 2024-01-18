@@ -30,11 +30,7 @@ public class Main {
         //Connect to DB and assign to connection variable
         connection = DBConnection.getConnection();
 
-
-
-
         SwingUtilities.invokeLater(() -> new UIClass(connection));
-
 
 
     }

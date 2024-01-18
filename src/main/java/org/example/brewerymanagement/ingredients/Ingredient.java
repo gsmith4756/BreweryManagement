@@ -2,14 +2,16 @@ package org.example.brewerymanagement.ingredients;
 import java.util.*;
 
 public abstract class Ingredient {
+
+    private String name;
     private double quantity;
     private double price;
-    private String type;
 
-    Ingredient(double quantity,double price, String type){
+
+    Ingredient(String name,double quantity,double price){
+        this.name = name;
         this.quantity = quantity;
         this.price = price;
-        this.type = type;
     }
 
     public void setQuantity(double newQuantity){
@@ -40,7 +42,10 @@ public abstract class Ingredient {
         price += amountToAdd;
     }
 
-    public String getType(){
-        return type;
+    public String getName(){
+        return name;
+    }
+    public void setName(String name){
+        this.name=name;
     }
 }

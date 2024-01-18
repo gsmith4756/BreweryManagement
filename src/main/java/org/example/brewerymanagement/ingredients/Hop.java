@@ -8,27 +8,25 @@ public class Hop extends Ingredient {
 
     private int ID;
     private static int count = 0;
-    private String name;
     private String harvestDate;
     private int IBU;
 
     public Hop(String name,double quantity,double price,String harvestDate,int IBU){
-        super(quantity,price,"Hop");
+        super(name,quantity,price);
         this.ID = count++;
-        this.name=name;
         this.harvestDate=harvestDate;
         this.IBU=IBU;
     }
 
     //default constructor
     public Hop(){
-        super(0.0,0.0,"");
+        super(null,0.0,0.0);
     }
 
     //Getters
 
     public int getID(){return ID;}
-    public String getName(){return name;}
+
 
     public String getHarvestDate(){
         return harvestDate;
@@ -45,11 +43,11 @@ public class Hop extends Ingredient {
     }
 
     public void setName(String name){
-        this.name=name;
+        super.setName(name);
     }
 
     public void setHarvestDate(String harvestDate){
-        this.harvestDate=name;
+        this.harvestDate=harvestDate;
     }
 
     public void setIBU(int IBU){

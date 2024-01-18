@@ -10,6 +10,12 @@ public class UIClass extends JFrame {
     private Connection connection;
     private JPanel mainPanel;
 
+    //array to hold table names
+    String[] ingredientsTables = {"hops", "malt", "yeast"};
+    String[] equipmentTables = {"canningLines", "mashTuns", "fermentationVessels"};
+    String[] ingredientTitles = {"Ingredients","Hops","Malt","Yeast"};
+    String[] equipmentTitles = {"Equipment","Canning Lines","Mash Tuns", "Fermentation Vessels"};
+
     public UIClass(Connection connection) {
         this.connection=connection;
 
@@ -20,12 +26,6 @@ public class UIClass extends JFrame {
         setSize(900, 800);
         setLayout(new GridLayout(0,1));
 
-
-        //array to hold table names
-        String[] ingredientsTables = {"hops", "malt", "yeast"};
-        String[] equipmentTables = {"canningLines", "mashTuns", "fermentationVessels"};
-        String[] ingredientTitles = {"Ingredients","Hops","Malt","Yeast"};
-        String[] equipmentTitles = {"Equipment","Canning Lines","Mash Tuns", "Fermentation Vessels"};
         //create panels for Ingredients and Equipment subclasses
         JPanel ingredientPanel = fetchData(ingredientTitles,ingredientsTables);
         JPanel equipmentPanel = fetchData(equipmentTitles,equipmentTables);
@@ -122,8 +122,9 @@ public class UIClass extends JFrame {
     }
 
     private void addButtonListener(String tableName) {
-        System.out.println(tableName);
-        new AddWindow(tableName);
+        new AddWindow(connection,tableName);
+        dispose();
+
     }
 
 

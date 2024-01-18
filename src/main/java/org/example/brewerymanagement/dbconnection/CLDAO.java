@@ -31,7 +31,8 @@ public class CLDAO {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 CanningLine cl = new CanningLine(
-                        resultSet.getString("type")
+                        resultSet.getString("type"),
+                        resultSet.getString("containerType")
                 );
                 canningLines.add(cl);
             }

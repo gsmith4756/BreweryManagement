@@ -6,14 +6,13 @@ public class Yeast extends Ingredient {
 
     private int ID;
     private static int count = 0;
-    String name;
+
     String format;
 
     public Yeast(String name,double quantity,double price,String format){
-        super(quantity,price,"Yeast");
+        super(name,quantity,price);
         this.ID = count;
         count++;
-        this.name = name;
         this.format = format;
     }
 
@@ -26,7 +25,4 @@ public class Yeast extends Ingredient {
         return format;
     }
 
-    public String getName(){
-        return name;
-    }
 }
