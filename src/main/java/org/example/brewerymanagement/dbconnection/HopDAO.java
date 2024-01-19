@@ -27,11 +27,13 @@ public class HopDAO {
             statement.setString(4, hop.getHarvestDate());
             statement.setInt(5, hop.getIBU());
             statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     // READ
-    public Hop read(int id) throws SQLException {
+    public Hop readID(int id) throws SQLException {
         String selectQuery = "SELECT * FROM hops WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(selectQuery)) {
             statement.setInt(1, id);
@@ -68,7 +70,7 @@ public class HopDAO {
         }
     }
 
-    // Helper method to extract a Hop object from query result
+    // Helper methods
     private Hop extractHopFromResultSet(ResultSet resultSet) throws SQLException {
 
         Hop hop = new Hop();
@@ -80,5 +82,25 @@ public class HopDAO {
         hop.setIBU(resultSet.getInt("IBU"));
         return hop;
     }
+
+    public Hop readName(String name) {
+        String query = "SELECT * FROM hops WHERE name = ?" + name;
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(2, name);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return extractHopFromResultSet(resultSet);
+                }
+            }
+
+        } catch (SQLException e) {
+
+        }
+        return null;
+
+    }
+
 }
+
 

@@ -7,6 +7,8 @@ public abstract class Ingredient {
     private double quantity;
     private double price;
 
+    private int ID;
+
 
     Ingredient(String name,double quantity,double price){
         this.name = name;
@@ -47,5 +49,9 @@ public abstract class Ingredient {
     }
     public void setName(String name){
         this.name=name;
+    }
+
+    public void setID(int id) {
+        this.ID = id;
     }
 }

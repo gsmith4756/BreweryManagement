@@ -23,6 +23,8 @@ public class FVDAO {
             statement.setString(2, fv.getDateOfPurchase());
             statement.setInt(3, fv.getCapacity());
             statement.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
         }
     }
 

@@ -1,6 +1,10 @@
 package org.example.brewerymanagement.UI;
 
 
+import org.example.brewerymanagement.dbconnection.*;
+import org.example.brewerymanagement.equipment.*;
+import org.example.brewerymanagement.ingredients.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -53,8 +57,13 @@ public class BrewWindow extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //get values from input boxes
                 String selectedHops = (String) hopsNameBox.getSelectedItem();
-                String selectedMalt = (String) maltNameBox.getSelectedItem();
+                String selectedMalt = (String)maltNameBox.getSelectedItem();
                 String selectedYeast = (String) yeastNameBox.getSelectedItem();
+
+                int hopQuantity = Integer.parseInt(hopsQuantityField.getText());
+                int maltQuantity = Integer.parseInt(maltQuantityField.getText());
+                int yeastQuantity = Integer.parseInt(yeastQuantityField.getText());
+
 
                 //TODO: call DAO classes to remove specified ingredients
 
@@ -86,5 +95,32 @@ public class BrewWindow extends JFrame {
         panel.add(nameBox);
         panel.add(quantityField);
         return panel;
+    }
+
+    private void updateIngredientTable(String tableName, String ingredientName, int usedQuantity) throws SQLException {
+        switch(tableName){
+            case "hops":
+                HopDAO hopDAO = new HopDAO(connection);
+                Hop readHop = hopDAO.readName(ingredientName);
+                readHop.removeQuantity(usedQuantity);
+                hopDAO.update(readHop);
+                break;
+            case "malt":
+                MaltDAO maltDAO = new MaltDAO(connection);
+                Malt readMalt = maltDAO.readName(ingredientName);
+                readMalt.removeQuantity(usedQuantity);
+                maltDAO.update(readMalt);
+                break;
+            case "yeast":
+                YeastDAO yeastDAO = new YeastDAO(connection);
+                Yeast readYeast = yeastDAO.readName(ingredientName);
+                readYeast.removeQuantity(usedQuantity);
+                yeastDAO.update(readYeast);
+                break;
+        }
+    }
+
+    private void setFermentationVesselInUse() throws SQLException {
+        //TODO
     }
 }

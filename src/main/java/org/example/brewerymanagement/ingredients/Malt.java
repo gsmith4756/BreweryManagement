@@ -11,6 +11,10 @@ public class Malt extends Ingredient {
         this.format = format;
     }
 
+    public Malt() {
+        super(null,0.0,0.0);
+    }
+
     //Getters
     public String getFormat(){
         return format;
@@ -18,5 +22,10 @@ public class Malt extends Ingredient {
 
     public String getName(){
         return super.getName();
+    }
+
+    //Setters
+    public void setFormat(String format) {
+        this.format=format;
     }
 }

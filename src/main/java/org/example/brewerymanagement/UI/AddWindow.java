@@ -326,12 +326,18 @@ public class AddWindow extends JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                String name = nameField.getText();
-                String DOP = DOPField.getText();
                 int capacity = Integer.parseInt(capacityField.getText());
+                String dateOfPurchase = DOPField.getText();
 
-                //TODO: add logic to call DAO classes
+                FermentationVessel newFermentationVessel = new FermentationVessel(dateOfPurchase,capacity);
+                FVDAO fermentationVesselDAO = new FVDAO(connection);
+
+                try {
+                    fermentationVesselDAO.create(newFermentationVessel);
+                    SwingUtilities.invokeLater(() -> new UIClass(connection));
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
 
                 //close window
                 dispose();
@@ -352,6 +358,9 @@ public class AddWindow extends JFrame {
         JLabel nameLabel = new JLabel("Name:");
         JTextField nameField = new JTextField(20);
 
+        JLabel capacityLabel = new JLabel("Name:");
+        JTextField capacityField = new JTextField(20);
+
         JLabel DOPLabel = new JLabel("Date of Purchase:");
         JTextField DOPField = new JTextField(10);
 
@@ -361,6 +370,8 @@ public class AddWindow extends JFrame {
 
         displayPanel.add(nameLabel);
         displayPanel.add(nameField);
+        displayPanel.add(capacityLabel);
+        displayPanel.add(capacityField);
         displayPanel.add(DOPLabel);
         displayPanel.add(DOPField);
         displayPanel.add(addButton);
@@ -370,11 +381,14 @@ public class AddWindow extends JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int capacity = Integer.parseInt(capacityField.getText());
+                String dateOfPurchase = DOPField.getText();
 
-                String name = nameField.getText();
-                String DOP = DOPField.getText();
+                MashTun newMashTun = new MashTun(dateOfPurchase,capacity);
+                MTDAO mtDAO = new MTDAO(connection);
 
-                //TODO: add logic to call DAO classes
+                mtDAO.create(newMashTun);
+                SwingUtilities.invokeLater(() -> new UIClass(connection));
 
                 //close window
                 dispose();

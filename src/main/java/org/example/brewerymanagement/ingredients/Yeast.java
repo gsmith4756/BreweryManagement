@@ -16,7 +16,12 @@ public class Yeast extends Ingredient {
         this.format = format;
     }
 
-    //Getters
+    //default constructor
+    public Yeast() {
+        super(null,0.0,0.0);
+    }
+
+    //getters
 
     public int getID(){
         return ID;
@@ -25,4 +30,7 @@ public class Yeast extends Ingredient {
         return format;
     }
 
+    public void setFormat(String format) {
+        this.format=format;
+    }
 }

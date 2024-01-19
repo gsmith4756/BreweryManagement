@@ -1,6 +1,8 @@
 package org.example.brewerymanagement.dbconnection;
 import java.sql.*;
 import java.util.ArrayList;
+
+import org.example.brewerymanagement.ingredients.Malt;
 import org.example.brewerymanagement.ingredients.Yeast;
 import java.util.List;
 
@@ -44,6 +46,8 @@ public class YeastDAO {
             preparedStatement.setString(4, yeast.getFormat());
 
             preparedStatement.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
         }
     }
 
@@ -51,12 +55,15 @@ public class YeastDAO {
 
     }
 
-    public void update(String strain, double newQuantity) throws SQLException {
-        String query = "UPDATE yeast SET quantity = ? WHERE strain = ?";
+    public void update(Yeast yeast) throws SQLException {
+        String query = "UPDATE malt SET name = ?, quantity = ?, price = ?, format = ? WHERE name = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setDouble(1, newQuantity);
-            preparedStatement.setString(2, strain);
+            preparedStatement.setString(1, yeast.getName());
+            preparedStatement.setDouble(2, yeast.getQuantity());
+            preparedStatement.setDouble(3, yeast.getPrice());
+            preparedStatement.setString(4, yeast.getFormat());
+            preparedStatement.setString(5, yeast.getName());
 
             preparedStatement.executeUpdate();
         }
@@ -70,6 +77,38 @@ public class YeastDAO {
 
             preparedStatement.executeUpdate();
         }
+    }
+
+    //helper methods
+
+    public Yeast readName(String name) {
+        String query = "SELECT * FROM yeast WHERE name = ?" + name;
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(2, name);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return extractYeastFromResultSet(resultSet);
+                }
+            }
+
+        } catch (SQLException e) {
+
+        }
+        return null;
+
+    }
+
+    private Yeast extractYeastFromResultSet(ResultSet resultSet) throws SQLException {
+
+        Yeast yeast = new Yeast();
+        yeast.setID(resultSet.getInt("id"));
+        yeast.setName(resultSet.getString("name"));
+        yeast.setQuantity(resultSet.getDouble("quantity"));
+        yeast.setPrice(resultSet.getDouble("price"));
+        yeast.setFormat(resultSet.getString("format"));
+
+        return yeast;
     }
 
 

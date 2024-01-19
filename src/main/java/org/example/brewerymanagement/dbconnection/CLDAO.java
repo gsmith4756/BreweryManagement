@@ -20,6 +20,8 @@ public class CLDAO {
         try (PreparedStatement statement = connection.prepareStatement(insertSQL)) {
             statement.setString(1, canningLine.getType());
             statement.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
         }
     }
 
