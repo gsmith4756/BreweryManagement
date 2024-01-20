@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 
 public class IngredientCreation {
 
+    /* Replaced with mySQL DB
 
     //replace with DB
     static List<Hop> hopsList = new ArrayList<Hop>();
@@ -136,7 +137,7 @@ public class IngredientCreation {
     }
 
 
-
+*/
 
     }
 

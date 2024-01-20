@@ -64,13 +64,33 @@ public class BrewWindow extends JFrame {
                 int maltQuantity = Integer.parseInt(maltQuantityField.getText());
                 int yeastQuantity = Integer.parseInt(yeastQuantityField.getText());
 
+                //SwingWorker to perform DB update tasks in background
+                SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+                    @Override
+                    protected Void doInBackground() throws Exception {
+                        //update all Ingredient tables in the background
+                        try {
+                            updateIngredientTable("hops", selectedHops, hopQuantity);
+                            updateIngredientTable("malt", selectedMalt, maltQuantity);
+                            updateIngredientTable("yeast", selectedYeast, yeastQuantity);
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                        return null;
+                    }
 
-                //TODO: call DAO classes to remove specified ingredients
+                    @Override
+                    protected void done() {
+                        //open main window again
+                        SwingUtilities.invokeLater(() -> new UIClass(connection));
+                    }
+                };
 
-                //close window
-                dispose();
+
+                worker.execute();
             }
         });
+
 
         setVisible(true);
     }
@@ -117,10 +137,15 @@ public class BrewWindow extends JFrame {
                 readYeast.removeQuantity(usedQuantity);
                 yeastDAO.update(readYeast);
                 break;
+
         }
     }
 
     private void setFermentationVesselInUse() throws SQLException {
         //TODO
+    }
+
+    private void updateBeersTable(String hop, String malt, String yeast) throws SQLException{
+
     }
 }

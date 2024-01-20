@@ -17,10 +17,10 @@ public class MTDAO {
 
     // Create
     public void create(MashTun mashTun) {
-        String insertQuery = "INSERT INTO equipment (type, inUse, dateOfPurchase, capacity) VALUES (?, ?, ?, ?)";
+        String insertQuery = "INSERT INTO mashTuns (name, inUse, dateOfPurchase, capacity) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
-            preparedStatement.setString(1, mashTun.getType());
+            preparedStatement.setString(1, mashTun.getName());
             preparedStatement.setBoolean(2, mashTun.isInUse());
             preparedStatement.setString(3, mashTun.getDateOfPurchase());
             preparedStatement.setInt(4, mashTun.getCapacity());
@@ -35,7 +35,7 @@ public class MTDAO {
     // Read
     public MashTun getMashTunById(int id) {
         MashTun mashTun = null;
-        String selectQuery = "SELECT * FROM equipment WHERE id = ?";
+        String selectQuery = "SELECT * FROM mashTuns WHERE id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(selectQuery)) {
             preparedStatement.setInt(1, id);
@@ -53,7 +53,7 @@ public class MTDAO {
 
     public List<MashTun> getAllMashTuns() {
         List<MashTun> mashTunList = new ArrayList<>();
-        String selectAllQuery = "SELECT * FROM equipment WHERE type = 'MashTun'";
+        String selectAllQuery = "SELECT * FROM mashTuns WHERE name = 'MashTun'";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(selectAllQuery)) {
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -70,10 +70,10 @@ public class MTDAO {
 
     // Update
     public void update(MashTun mashTun) {
-        String updateQuery = "UPDATE equipment SET type = ?, inUse = ?, dateOfPurchase = ?, capacity = ? WHERE id = ?";
+        String updateQuery = "UPDATE mashTuns SET name = ?, inUse = ?, dateOfPurchase = ?, capacity = ? WHERE id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
-            preparedStatement.setString(1, mashTun.getType());
+            preparedStatement.setString(1, mashTun.getName());
             preparedStatement.setBoolean(2, mashTun.isInUse());
             preparedStatement.setString(3, mashTun.getDateOfPurchase());
             preparedStatement.setInt(4, mashTun.getCapacity());
@@ -88,7 +88,7 @@ public class MTDAO {
 
     // Delete
     public void delete(int id) {
-        String deleteQuery = "DELETE FROM equipment WHERE id = ?";
+        String deleteQuery = "DELETE FROM mashTuns WHERE id = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(deleteQuery)) {
             preparedStatement.setInt(1, id);
@@ -103,7 +103,7 @@ public class MTDAO {
     private MashTun mapResultSetToMashTun(ResultSet resultSet) throws SQLException {
         MashTun mashTun = new MashTun();
         mashTun.setId(resultSet.getInt("id"));
-        mashTun.setType(resultSet.getString("type"));
+        mashTun.setType(resultSet.getString("name"));
         mashTun.setInUse(resultSet.getBoolean("inUse"));
         mashTun.setDateOfPurchase(resultSet.getString("dateOfPurchase"));
         mashTun.setCapacity(resultSet.getInt("capacity"));

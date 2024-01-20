@@ -57,13 +57,13 @@ public class AddWindow extends JFrame {
         JLabel nameLabel = new JLabel("Name:");
         JTextField nameField = new JTextField(20);
 
-        JLabel quantityLabel = new JLabel("Quantity:");
+        JLabel quantityLabel = new JLabel("Quantity (KG):");
         JTextField quantityField = new JTextField(10);
 
-        JLabel priceLabel = new JLabel("Price:");
+        JLabel priceLabel = new JLabel("Price (£):");
         JTextField priceField = new JTextField(10);
 
-        JLabel harvestDateLabel = new JLabel("Harvest Date:");
+        JLabel harvestDateLabel = new JLabel("Harvest Date (dd/mm/yyyy):");
         JTextField harvestDateField = new JTextField(10);
 
         JLabel IBULabel = new JLabel("IBU:");
@@ -126,13 +126,13 @@ public class AddWindow extends JFrame {
         JLabel nameLabel = new JLabel("Name:");
         JTextField nameField = new JTextField(20);
 
-        JLabel quantityLabel = new JLabel("Quantity:");
+        JLabel quantityLabel = new JLabel("Quantity (KG):");
         JTextField quantityField = new JTextField(10);
 
-        JLabel priceLabel = new JLabel("Price:");
+        JLabel priceLabel = new JLabel("Price (£):");
         JTextField priceField = new JTextField(10);
 
-        JLabel formatLabel = new JLabel("Format:");
+        JLabel formatLabel = new JLabel("Format(Crushed/Whole):");
         JTextField formatField = new JTextField(10);
 
         JButton addButton = new JButton("Add");
@@ -187,13 +187,13 @@ public class AddWindow extends JFrame {
         JLabel nameLabel = new JLabel("Name:");
         JTextField nameField = new JTextField(20);
 
-        JLabel quantityLabel = new JLabel("Quantity:");
+        JLabel quantityLabel = new JLabel("Quantity (KG):");
         JTextField quantityField = new JTextField(10);
 
-        JLabel priceLabel = new JLabel("Price:");
+        JLabel priceLabel = new JLabel("Price (£):");
         JTextField priceField = new JTextField(10);
 
-        JLabel formatLabel = new JLabel("Format:");
+        JLabel formatLabel = new JLabel("Format (Liquid/Dried):");
         JTextField formatField = new JTextField(10);
 
         JButton addButton = new JButton("Add");
@@ -245,21 +245,21 @@ public class AddWindow extends JFrame {
 
         setLayout(new GridLayout(2, 2));
         //create labels and boxes
-        JLabel typeLabel = new JLabel("Type:");
-        JTextField typeField = new JTextField(20);
+        JLabel nameLabel = new JLabel("Type:");
+        JTextField nameField = new JTextField(20);
 
-        JLabel containerTypeLabel = new JLabel("Container type:");
+        JLabel containerTypeLabel = new JLabel("Container type (Can/Bottle):");
         JTextField containerTypeField = new JTextField(20);
 
-        JLabel DOPLabel = new JLabel("Date of Purchase:");
+        JLabel DOPLabel = new JLabel("Date of Purchase (dd/mm/yyyy):");
         JTextField DOPField = new JTextField(10);
 
         JButton addButton = new JButton("Add");
 
         //add to panel
 
-        displayPanel.add(typeLabel);
-        displayPanel.add(typeField);
+        displayPanel.add(nameLabel);
+        displayPanel.add(nameField);
         displayPanel.add(containerTypeLabel);
         displayPanel.add(containerTypeField);
         displayPanel.add(DOPLabel);
@@ -270,12 +270,12 @@ public class AddWindow extends JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String type = typeField.getText();
+                String name = nameField.getText();
                 String containerType = containerTypeField.getText();
                 boolean inUse = false; // Default value
                 String dateOfPurchase = DOPField.getText();
 
-                CanningLine newCanningLine = new CanningLine(dateOfPurchase, containerType);
+                CanningLine newCanningLine = new CanningLine(name,dateOfPurchase, containerType);
                 CLDAO canningLineDAO = new CLDAO(connection);
 
                 try {
@@ -304,10 +304,10 @@ public class AddWindow extends JFrame {
         JLabel nameLabel = new JLabel("Name:");
         JTextField nameField = new JTextField(20);
 
-        JLabel DOPLabel = new JLabel("Date of Purchase:");
+        JLabel DOPLabel = new JLabel("Date of Purchase (dd/mm/yyyy):");
         JTextField DOPField = new JTextField(10);
 
-        JLabel capacityLabel = new JLabel("Capacity:");
+        JLabel capacityLabel = new JLabel("Capacity (L):");
         JTextField capacityField = new JTextField(10);
 
         JButton addButton = new JButton("Add");
@@ -326,10 +326,11 @@ public class AddWindow extends JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String name = nameField.getText();
                 int capacity = Integer.parseInt(capacityField.getText());
                 String dateOfPurchase = DOPField.getText();
 
-                FermentationVessel newFermentationVessel = new FermentationVessel(dateOfPurchase,capacity);
+                FermentationVessel newFermentationVessel = new FermentationVessel(name,dateOfPurchase,capacity);
                 FVDAO fermentationVesselDAO = new FVDAO(connection);
 
                 try {
@@ -358,10 +359,10 @@ public class AddWindow extends JFrame {
         JLabel nameLabel = new JLabel("Name:");
         JTextField nameField = new JTextField(20);
 
-        JLabel capacityLabel = new JLabel("Name:");
+        JLabel capacityLabel = new JLabel("Capacity (L):");
         JTextField capacityField = new JTextField(20);
 
-        JLabel DOPLabel = new JLabel("Date of Purchase:");
+        JLabel DOPLabel = new JLabel("Date of Purchase (DD/MM/YYYY):");
         JTextField DOPField = new JTextField(10);
 
         JButton addButton = new JButton("Add");
@@ -381,10 +382,11 @@ public class AddWindow extends JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String name = nameField.getText();
                 int capacity = Integer.parseInt(capacityField.getText());
                 String dateOfPurchase = DOPField.getText();
 
-                MashTun newMashTun = new MashTun(dateOfPurchase,capacity);
+                MashTun newMashTun = new MashTun(name,dateOfPurchase,capacity);
                 MTDAO mtDAO = new MTDAO(connection);
 
                 mtDAO.create(newMashTun);

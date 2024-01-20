@@ -5,8 +5,8 @@ public class CanningLine extends Equipment {
     private String containerType;
 
 
-    public CanningLine(String dateOfPurchase,String containerType){
-        super("Canning Line",dateOfPurchase);
+    public CanningLine(String name,String dateOfPurchase,String containerType){
+        super(name,dateOfPurchase);
         this.containerType=containerType;
     }
 

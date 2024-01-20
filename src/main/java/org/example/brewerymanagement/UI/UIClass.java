@@ -23,7 +23,7 @@ public class UIClass extends JFrame {
 
         setTitle("Brewery Management");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(900, 800);
+        setSize(950, 800);
         setLayout(new GridLayout(0,1));
 
         //create panels for Ingredients and Equipment subclasses
@@ -48,11 +48,7 @@ public class UIClass extends JFrame {
         add(mainPanel);
         setVisible(true);
 
-
-
         }
-
-
 
     private JPanel fetchData(String[] titles, String[] tables) {
         JPanel tablePanel = new JPanel(new BorderLayout());
@@ -119,6 +115,7 @@ public class UIClass extends JFrame {
 
     private void brewButtonListener() {
         new BrewWindow(connection);
+        dispose();
     }
 
     private void addButtonListener(String tableName) {

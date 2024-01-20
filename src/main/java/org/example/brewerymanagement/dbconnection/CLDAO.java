@@ -16,9 +16,11 @@ public class CLDAO {
 
     //CRUD
     public void create(CanningLine canningLine) throws SQLException {
-        String insertSQL = "INSERT INTO canningLines (type) VALUES (?, ?, ?, ?)";
+        String insertSQL = "INSERT INTO canningLines (name, dateOfPurchase, containerType) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(insertSQL)) {
-            statement.setString(1, canningLine.getType());
+            statement.setString(1, canningLine.getName());
+            statement.setString(2,canningLine.getDateOfPurchase());
+            statement.setString(3,canningLine.getContainerType());
             statement.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
@@ -33,7 +35,8 @@ public class CLDAO {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 CanningLine cl = new CanningLine(
-                        resultSet.getString("type"),
+                        resultSet.getString("name"),
+                        resultSet.getString("dateOfPurchase"),
                         resultSet.getString("containerType")
                 );
                 canningLines.add(cl);
@@ -43,9 +46,9 @@ public class CLDAO {
     }
 
     public void update(CanningLine canningLine) throws SQLException {
-        String updateSQL = "UPDATE canningLines SET type=? WHERE id=?";
+        String updateSQL = "UPDATE canningLines SET name=? WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(updateSQL)) {
-            statement.setString(1, canningLine.getType());
+            statement.setString(1, canningLine.getName());
             statement.setInt(5, canningLine.getID());
             statement.executeUpdate();
         }

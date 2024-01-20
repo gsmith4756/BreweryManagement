@@ -14,6 +14,7 @@ import java.sql.SQLException;
 
 public class EquipmentCreation {
 
+/* Replaced with mySQL DB
     static List<FermentationVessel> fermentationVesselList = new ArrayList<>();
     static List<MashTun> mashTunList = new ArrayList<>();
     static List<CanningLine> canningLineList = new ArrayList<>();
@@ -87,10 +88,16 @@ public class EquipmentCreation {
         System.out.println("Enter the date of purchase:");
         String dateOfPurchase = scanner.next();
 
+        System.out.println("Enter container type");
+        String containerType = scanner.next();
+
         for (int i = 0; i < numOfCanningLines; i++) {
 
-            clDAO.create(new CanningLine(dateOfPurchase));
+            clDAO.create(new CanningLine(containerType,dateOfPurchase));
         }
 
     }
+
+
+ */
 }

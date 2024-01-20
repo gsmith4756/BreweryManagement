@@ -6,15 +6,15 @@ public class MashTun extends Equipment {
 
     private int capacity;
 
-    public MashTun(String dateOfPurchase, int capacity) {
-        super("MashTun", dateOfPurchase);
+    public MashTun(String name,String dateOfPurchase, int capacity) {
+        super(name, dateOfPurchase);
         this.capacity = capacity;
     }
 
     //default constructor for mapping
 
     public MashTun(){
-        super("Mash Tun",null);
+        super(null,null);
     }
 
     //Getters

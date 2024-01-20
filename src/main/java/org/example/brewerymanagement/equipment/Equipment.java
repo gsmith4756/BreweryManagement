@@ -4,13 +4,13 @@ public class Equipment {
 
     private int ID;
     private static int count = 0;
-    private String type;
+    private String name;
     private boolean inUse = false;
     private String dateOfPurchase;
 
-    public Equipment(String type, String dateOfPurchase){
+    public Equipment(String name, String dateOfPurchase){
         ID = ++count;
-        this.type = type;
+        this.name = name;
         this.dateOfPurchase = dateOfPurchase;
 
     }
@@ -19,7 +19,7 @@ public class Equipment {
     public int getID(){
         return ID;
     }
-    public String getType() { return type; }
+    public String getName() { return name; }
     public boolean IsInUse(){ return inUse; }
     public String getDateOfPurchase(){ return dateOfPurchase;}
 

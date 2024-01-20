@@ -6,8 +6,8 @@ public class FermentationVessel extends Equipment {
 
     private int capacity;
 
-    public FermentationVessel(String dateOfPurchase,int capacity) {
-        super("FV",dateOfPurchase);
+    public FermentationVessel(String name,String dateOfPurchase,int capacity) {
+        super(name,dateOfPurchase);
         this.capacity=capacity;
 
     }

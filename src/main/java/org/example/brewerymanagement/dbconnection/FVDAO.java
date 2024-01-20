@@ -17,9 +17,9 @@ public class FVDAO {
 
     //CRUD methods
     public void create(FermentationVessel fv) throws SQLException {
-        String insertSQL = "INSERT INTO fermentation_vessels (type, date_of_purchase, capacity) VALUES (?, ?, ?)";
+        String insertSQL = "INSERT INTO fermentationvessels (name, date_of_purchase, capacity) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(insertSQL)) {
-            statement.setString(1, fv.getType());
+            statement.setString(1, fv.getName());
             statement.setString(2, fv.getDateOfPurchase());
             statement.setInt(3, fv.getCapacity());
             statement.executeUpdate();
@@ -31,11 +31,12 @@ public class FVDAO {
 
     public List<FermentationVessel> getAllFermentationVessels() throws SQLException {
         List<FermentationVessel> fermentationVessels = new ArrayList<>();
-        String selectSQL = "SELECT * FROM fermentationVessel";
+        String selectSQL = "SELECT * FROM fermentationvessels";
         try (PreparedStatement statement = connection.prepareStatement(selectSQL)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 FermentationVessel fv = new FermentationVessel(
+                        resultSet.getString("name"),
                         resultSet.getString("dateOfPurchase"),
                         resultSet.getInt("capacity")
                 );
@@ -47,9 +48,9 @@ public class FVDAO {
 
 
     public void update(FermentationVessel fv) throws SQLException {
-        String updateSQL = "UPDATE fermentation_vessels SET type=?, date_of_purchase=?, capacity=? WHERE id=?";
+        String updateSQL = "UPDATE fermentationvessels SET name=?, date_of_purchase=?, capacity=? WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(updateSQL)) {
-            statement.setString(1, fv.getType());
+            statement.setString(1, fv.getName());
             statement.setString(2, fv.getDateOfPurchase());
             statement.setInt(3, fv.getCapacity());
             statement.setInt(4, fv.getID());
@@ -58,7 +59,7 @@ public class FVDAO {
     }
 
     public void delete(int id) throws SQLException {
-        String deleteSQL = "DELETE FROM fermentation_vessels WHERE id=?";
+        String deleteSQL = "DELETE FROM fermentationvessels WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(deleteSQL)) {
             statement.setInt(1, id);
             statement.executeUpdate();

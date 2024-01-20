@@ -109,8 +109,7 @@ public class TableCreator {
 
         //Connect to mySQL and create table with above parameters
 
-        try (
-             Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
              statement.executeUpdate(createTableSQL);
              System.out.println("Table created successfully");
         } catch (SQLException e) {
@@ -130,8 +129,7 @@ public class TableCreator {
 
         //Connect to MySQL and create table with above parameters
 
-        try (
-                Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(createTableSQL);
             System.out.println("Table created successfully");
         } catch (SQLException e) {
@@ -144,13 +142,13 @@ public class TableCreator {
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
                 "name VARCHAR(255)," +
                 "inUse TINYINT(1)," +
-                "dateOfPurchase VARCHAR(255)" +
+                "dateOfPurchase VARCHAR(255)," +
+                "capacity INT" +
                 ");";
 
         //Connect to mySQL and create table with above parameters
 
-        try (
-                Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(createTableSQL);
             System.out.println("Table created successfully");
         } catch (SQLException e) {
@@ -164,13 +162,13 @@ public class TableCreator {
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
                 "name VARCHAR(255)," +
                 "inUse TINYINT(1)," +
-                "dateOfPurchase VARCHAR(255)" +
+                "dateOfPurchase VARCHAR(255)," +
+                "capacity INT" +
                 ");";
 
         //Connect to mySQL and create table with above parameters
 
-        try (
-                Statement statement = connection.createStatement()) {
+        try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(createTableSQL);
             System.out.println("Table created successfully");
         } catch (SQLException e) {
@@ -178,4 +176,28 @@ public class TableCreator {
         }
 
     }
+
+    public static void createBeersTable(Connection connection) {
+        String createTableSQL =
+                "CREATE TABLE beersBrewing (" +
+                "ID INT PRIMARY KEY AUTO_INCREMENT," +
+                "beerName VARCHAR(255)," +
+                "brewDate DATE," +
+                "hopsUsed VARCHAR(255)," +
+                "maltUsed VARCHAR(255)," +
+                "yeastUsed VARCHAR(255)" +
+                "fvUsed VARCHAR(255)" +
+                ");";
+
+        //Connect to mySQL and create table with above parameters
+
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(createTableSQL);
+            System.out.println("Table created successfully");
+        } catch (SQLException e) {
+            System.err.println("Error creating table: " + e.getMessage());
+        }
+
+    }
+
 }
