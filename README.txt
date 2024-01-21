@@ -27,8 +27,7 @@ Hello! Thanks for checking out this project. This project is a simple Brewery Ma
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/your-username/brewery-management.git
+   git clone https://github.com/gsmith4756/brewery-management.git
 
 2. Build project in Maven
 
