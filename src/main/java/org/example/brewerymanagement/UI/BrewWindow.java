@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Date;
 
 public class BrewWindow extends JFrame {
 
@@ -26,6 +27,8 @@ public class BrewWindow extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         //create labels and boxes
+        JLabel beerNameLabel = new JLabel("Beer Name:");
+        JTextField beerNameBox = new JTextField(10);
         JLabel hopsLabel = new JLabel("Hops Used:");
         JComboBox<String> hopsNameBox = createComboBox("hops");
         JTextField hopsQuantityField = new JTextField(10);
@@ -45,6 +48,8 @@ public class BrewWindow extends JFrame {
         //create initial layout
         setLayout(new GridLayout(4, 1));
 
+        add(beerNameLabel);
+        add(beerNameBox);
         add(hopsPanel);
         add(maltPanel);
         add(yeastPanel);
@@ -56,6 +61,7 @@ public class BrewWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //get values from input boxes
+                String beerName = (String) beerNameBox.getText();
                 String selectedHops = (String) hopsNameBox.getSelectedItem();
                 String selectedMalt = (String)maltNameBox.getSelectedItem();
                 String selectedYeast = (String) yeastNameBox.getSelectedItem();
@@ -73,6 +79,7 @@ public class BrewWindow extends JFrame {
                             updateIngredientTable("hops", selectedHops, hopQuantity);
                             updateIngredientTable("malt", selectedMalt, maltQuantity);
                             updateIngredientTable("yeast", selectedYeast, yeastQuantity);
+                            updateBeersTable(beerName,selectedHops,selectedMalt,selectedYeast);
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                         }
@@ -145,7 +152,17 @@ public class BrewWindow extends JFrame {
         //TODO
     }
 
-    private void updateBeersTable(String hop, String malt, String yeast) throws SQLException{
+    private void updateBeersTable(String name,String hop, String malt, String yeast) throws SQLException{
 
+        Date brewDate = new Date(System.currentTimeMillis());
+
+        try {
+            Statement statement = connection.createStatement();
+            String insertQuery = "INSERT INTO brewedBeers (beerName, brewDate, hopsUsed, maltUsed) " +
+                    "VALUES ('" + name + "', '" + brewDate + "', '" + hop + "', '" + malt + "')";
+            statement.executeUpdate(insertQuery);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
