@@ -4,10 +4,10 @@ Hello! Thanks for checking out this project. This project is a simple Brewery Ma
 
 ## Table of Contents
 
-- [Features](#features)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Usage](#usage)
+- Features
+- Requirements
+- Installation
+- Usage
 
 
 ## Features
