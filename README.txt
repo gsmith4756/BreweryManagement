@@ -75,3 +75,7 @@ mvn clean install
 ## Usage
 
 java -jar target/brewery-management.jar
+
+Please add all of the hops, yeast, malt and equipment you have within the brewery and then use the "Brew" button to brew a beer using the quantities you specify. The application will automatically pick an available fermentation vessel once you press brew again.
+
+Happy brewing!
