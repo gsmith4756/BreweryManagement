@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 
 public class BrewWindow extends JFrame {
 
@@ -39,21 +40,43 @@ public class BrewWindow extends JFrame {
         JComboBox<String> yeastNameBox = createComboBox("yeast");
         JTextField yeastQuantityField = new JTextField(10);
         JButton brewButton = new JButton("Brew");
+        brewButton.setPreferredSize(new Dimension(150, 40));
 
-        //create panels for each Ingredient
-        JPanel hopsPanel = createPanel(hopsLabel, hopsNameBox, hopsQuantityField);
-        JPanel maltPanel = createPanel(maltLabel, maltNameBox, maltQuantityField);
-        JPanel yeastPanel = createPanel(yeastLabel, yeastNameBox, yeastQuantityField);
 
-        //create initial layout
-        setLayout(new GridLayout(4, 1));
+        //create panels + use GridBagConstraints for even layout
+        JPanel inputPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        inputPanel.add(beerNameLabel, gbc);
+        gbc.gridy++;
+        inputPanel.add(beerNameBox, gbc);
+        gbc.gridy++;
+        inputPanel.add(hopsLabel, gbc);
+        gbc.gridy++;
+        inputPanel.add(hopsNameBox, gbc);
+        gbc.gridy++;
+        inputPanel.add(hopsQuantityField, gbc);
+        gbc.gridy++;
+        inputPanel.add(maltLabel, gbc);
+        gbc.gridy++;
+        inputPanel.add(maltNameBox, gbc);
+        gbc.gridy++;
+        inputPanel.add(maltQuantityField, gbc);
+        gbc.gridy++;
+        inputPanel.add(yeastLabel, gbc);
+        gbc.gridy++;
+        inputPanel.add(yeastNameBox, gbc);
+        gbc.gridy++;
+        inputPanel.add(yeastQuantityField, gbc);
+        gbc.gridy++;
+        gbc.anchor = GridBagConstraints.CENTER;
+        inputPanel.add(brewButton, gbc);
 
-        add(beerNameLabel);
-        add(beerNameBox);
-        add(hopsPanel);
-        add(maltPanel);
-        add(yeastPanel);
-        add(brewButton);
+        // Create initial layout
+        setLayout(new BorderLayout());
+        add(inputPanel, BorderLayout.CENTER);
 
 
         //listener for button
@@ -74,12 +97,13 @@ public class BrewWindow extends JFrame {
                 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                     @Override
                     protected Void doInBackground() throws Exception {
-                        //update all Ingredient tables in the background
+                        System.out.println("DIB started");
                         try {
+                            System.out.println("try started");
                             updateIngredientTable("hops", selectedHops, hopQuantity);
                             updateIngredientTable("malt", selectedMalt, maltQuantity);
                             updateIngredientTable("yeast", selectedYeast, yeastQuantity);
-                            updateBeersTable(beerName,selectedHops,selectedMalt,selectedYeast);
+                            updateBeersTable(beerName, selectedHops, selectedMalt, selectedYeast);
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                         }
@@ -92,7 +116,6 @@ public class BrewWindow extends JFrame {
                         SwingUtilities.invokeLater(() -> new UIClass(connection));
                     }
                 };
-
 
                 worker.execute();
             }
@@ -148,21 +171,40 @@ public class BrewWindow extends JFrame {
         }
     }
 
-    private void setFermentationVesselInUse() throws SQLException {
-        //TODO
-    }
 
-    private void updateBeersTable(String name,String hop, String malt, String yeast) throws SQLException{
+    private void updateBeersTable(String name, String hop, String malt, String yeast) throws SQLException {
+
+        System.out.println("running :)");
 
         Date brewDate = new Date(System.currentTimeMillis());
 
-        try {
-            Statement statement = connection.createStatement();
-            String insertQuery = "INSERT INTO brewedBeers (beerName, brewDate, hopsUsed, maltUsed) " +
-                    "VALUES ('" + name + "', '" + brewDate + "', '" + hop + "', '" + malt + "')";
-            statement.executeUpdate(insertQuery);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        FVDAO fvdao = new FVDAO(connection);
+        FermentationVessel availableFV = fvdao.getAvailableFermentationVessel();
+
+        //check if there is an availableFV
+        if (availableFV != null) {
+            availableFV.setInUse(true);
+            fvdao.update(availableFV);
+
+            try {
+                String insertQuery = "INSERT INTO beersbrewing (beerName, brewDate, hopsUsed, maltUsed, yeastUsed, fvUsed) " +
+                        "VALUES (?, ?, ?, ?, ?, ?)";
+                try (PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
+                    preparedStatement.setString(1, name);
+                    preparedStatement.setDate(2, brewDate);
+                    preparedStatement.setString(3, hop);
+                    preparedStatement.setString(4, malt);
+                    preparedStatement.setString(5, yeast);
+                    preparedStatement.setString(6, availableFV.getName());
+
+                    preparedStatement.executeUpdate();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+
+            System.out.println("No available fermentation vessel found.");
         }
     }
 }

@@ -10,7 +10,7 @@ public class UIClass extends JFrame {
     private Connection connection;
     private JPanel mainPanel;
 
-    //array to hold table names
+    //arrays to hold table names
     String[] ingredientsTables = {"hops", "malt", "yeast"};
     String[] equipmentTables = {"canningLines", "mashTuns", "fermentationVessels"};
     String[] ingredientTitles = {"Ingredients","Hops","Malt","Yeast"};

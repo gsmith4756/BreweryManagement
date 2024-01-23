@@ -29,4 +29,19 @@ public class Equipment {
     }
 
 
+    public void setID(int id) {
+        this.ID = id;
+    }
+
+    public void setName(String variety) {
+        this.name = name;
+    }
+
+    public void setDateOfPurchase(String dateOfPurchase) {
+        this.dateOfPurchase = dateOfPurchase;
+    }
+
+    public boolean isInUse() {
+        return inUse;
+    }
 }

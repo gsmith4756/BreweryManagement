@@ -29,7 +29,9 @@ public class Main {
 
         //Connect to DB and assign to connection variable
         connection = DBConnection.getConnection();
-
+        //Create mySQL tables if missing
+        TableCreator.createMissingTables(connection);
+        //Create instance of UI
         SwingUtilities.invokeLater(() -> new UIClass(connection));
 
 

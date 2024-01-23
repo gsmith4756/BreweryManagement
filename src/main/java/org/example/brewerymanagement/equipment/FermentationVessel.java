@@ -12,6 +12,10 @@ public class FermentationVessel extends Equipment {
 
     }
 
+    public FermentationVessel() {
+        super(null,null);
+    }
+
 
     //Getters
     public int getCapacity() {

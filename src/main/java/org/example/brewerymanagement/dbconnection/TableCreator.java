@@ -1,61 +1,41 @@
 package org.example.brewerymanagement.dbconnection;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class TableCreator {
 
-    public static void createTables(Connection connection) throws SQLException {
-        String checkTablesSQL = "SHOW TABLES;";
+    private static String [] tables = {"hops","malt","yeast","canninglines","fermentationvessels","mashtuns","beersbrewing"};
 
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(checkTablesSQL);
-
-
-        String [] tableList = new String[6];
-        int count = 1;
-
-        while(resultSet.next()){
-            System.out.println(resultSet.getString(count));
-            tableList[count]=resultSet.getString(count);
-            count++;
-        }
-    }
-    public static void createIngredientsTable() {
-        String createTableSQL = "CREATE TABLE ingredients (" +
-                "id INT AUTO_INCREMENT PRIMARY KEY," +
-                "name VARCHAR(255)," +
-                "quantity DOUBLE," +
-                "price DOUBLE" +
-                ");";
-
-        try (Connection connection = DBConnection.getConnection();
-             Statement statement = connection.createStatement()) {
-            statement.executeUpdate(createTableSQL);
-            System.out.println("Table created successfully");
-        } catch (SQLException e) {
-            System.err.println("Error creating table: " + e.getMessage());
-        }
-
-    }
-
-    public static void createEquipmentTable() {
-        String createTableSQL = "CREATE TABLE equipment (" +
-                "id INT AUTO_INCREMENT PRIMARY KEY," +
-                ");";
-
-        try (Connection connection = DBConnection.getConnection();
-             Statement statement = connection.createStatement()) {
-            statement.executeUpdate(createTableSQL);
-            System.out.println("Table created successfully");
-        } catch (SQLException e) {
-            System.err.println("Error creating table: " + e.getMessage());
+    public static void createTables(Connection connection,String tableName) throws SQLException {
+        switch (tableName.toLowerCase()) {
+            case "hops":
+                createHopTable(connection);
+                break;
+            case "malt":
+                createMaltTable(connection);
+                break;
+            case "yeast":
+                createYeastTable(connection);
+                break;
+            case "canninglines":
+                createCLTable(connection);
+                break;
+            case "fermentationvessels":
+                createFVTable(connection);
+                break;
+            case "mashtuns":
+                createMTTable(connection);
+                break;
+            case "beersbrewing":
+                createBeersTable(connection);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown table: " + tableName);
         }
     }
 
-    public static void createHopTable() {
+
+    public static void createHopTable(Connection connection) {
         String createTableSQL = "CREATE TABLE hops (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
                 "name VARCHAR(255)," +
@@ -67,7 +47,7 @@ public class TableCreator {
 
         //Connect to mySQL and create table with above parameters
 
-        try (Connection connection = DBConnection.getConnection();
+        try (
              Statement statement = connection.createStatement()) {
              statement.executeUpdate(createTableSQL);
              System.out.println("Table created successfully");
@@ -163,7 +143,7 @@ public class TableCreator {
                 "name VARCHAR(255)," +
                 "inUse TINYINT(1)," +
                 "dateOfPurchase VARCHAR(255)," +
-                "capacity INT" +
+                "containerType VARCHAR(255)" +
                 ");";
 
         //Connect to mySQL and create table with above parameters
@@ -185,7 +165,7 @@ public class TableCreator {
                 "brewDate DATE," +
                 "hopsUsed VARCHAR(255)," +
                 "maltUsed VARCHAR(255)," +
-                "yeastUsed VARCHAR(255)" +
+                "yeastUsed VARCHAR(255)," +
                 "fvUsed VARCHAR(255)" +
                 ");";
 
@@ -198,6 +178,32 @@ public class TableCreator {
             System.err.println("Error creating table: " + e.getMessage());
         }
 
+    }
+    public static void createMissingTables(Connection connection) {
+        try {
+            //loop through tables and create if missing
+            for (String tableName : tables) {
+                createTableIfMissing(connection, tableName);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void createTableIfMissing(Connection connection, String tableName) throws SQLException {
+        DatabaseMetaData metaData = connection.getMetaData();
+        if (!tableExists(metaData, tableName)) {
+            createTables(connection,tableName);
+            System.out.println("Table " + tableName + " created.");
+        }
+    }
+
+    //check if table exists using metadata retrieved in above method
+    private static boolean tableExists(DatabaseMetaData metaData, String tableName) throws SQLException {
+        try (var resultSet = metaData.getTables(null, null, tableName, null)) {
+            return resultSet.next();
+        }
     }
 
 }
