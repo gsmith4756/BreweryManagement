@@ -74,6 +74,8 @@ public class HopDAO {
     private Hop extractHopFromResultSet(ResultSet resultSet) throws SQLException {
 
         Hop hop = new Hop();
+
+
         hop.setID(resultSet.getInt("id"));
         hop.setName(resultSet.getString("name"));
         hop.setQuantity(resultSet.getDouble("quantity"));
@@ -90,13 +92,17 @@ public class HopDAO {
             statement.setString(1, name);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return extractHopFromResultSet(resultSet);
+                    Hop readHop = extractHopFromResultSet(resultSet);
+                    return readHop;
                 }else{
                     System.out.println("Hop not found " + name);
                 }
+            }catch(Exception e){
+                e.printStackTrace();
             }
 
         } catch (SQLException e) {
+            e.printStackTrace();
 
         }
         return null;

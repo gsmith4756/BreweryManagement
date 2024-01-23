@@ -89,6 +89,11 @@ public class AddWindow extends JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //validate inputs
+                if (!isValidIntInput(quantityField.getText()) || !isValidDoubleInput(priceField.getText()) || !isValidIntInput(IBUField.getText()) || !isValidDateFormat(harvestDateField.getText())) {
+                    JOptionPane.showMessageDialog(AddWindow.this, "Invalid input, please check your entries", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
                 String name = nameField.getText();
                 int quantity = Integer.parseInt(quantityField.getText());
@@ -153,6 +158,13 @@ public class AddWindow extends JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                //validate inputs
+                if (!isValidDoubleInput(quantityField.getText()) || !isValidDoubleInput(priceField.getText())) {
+                    JOptionPane.showMessageDialog(AddWindow.this, "Invalid input, please check your entries", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 String name = nameField.getText();
                 double quantity = Double.parseDouble(quantityField.getText());
                 double price = Double.parseDouble(priceField.getText());
@@ -214,10 +226,17 @@ public class AddWindow extends JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                //validate inputs
+                if (!isValidDoubleInput(quantityField.getText()) || !isValidDoubleInput(priceField.getText())) {
+                    JOptionPane.showMessageDialog(AddWindow.this, "Invalid input, please check your entries", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 String name = nameField.getText();
                 double quantity = Double.parseDouble(quantityField.getText());
                 double price = Double.parseDouble(priceField.getText());
-                String format = formatField.getText();  // New field for Yeast
+                String format = formatField.getText();
 
                 Yeast newYeast = new Yeast(name, quantity, price, format);
                 YeastDAO yeastDAO = new YeastDAO(connection);
@@ -270,9 +289,15 @@ public class AddWindow extends JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                if (!isValidDateFormat(DOPField.getText())) {
+                    JOptionPane.showMessageDialog(AddWindow.this, "Invalid date, please use dd/mm/yyyy.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 String name = nameField.getText();
                 String containerType = containerTypeField.getText();
-                boolean inUse = false; // Default value
+                boolean inUse = false; //default, maybe redundant
                 String dateOfPurchase = DOPField.getText();
 
                 CanningLine newCanningLine = new CanningLine(name,dateOfPurchase, containerType);
@@ -285,7 +310,7 @@ public class AddWindow extends JFrame {
                     throw new RuntimeException(ex);
                 }
 
-                // Close window
+                //close window
                 dispose();
             }
         });
@@ -326,6 +351,13 @@ public class AddWindow extends JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                //validate inputs
+                if (!isValidIntInput(capacityField.getText()) || !isValidDateFormat(DOPField.getText())) {
+                    JOptionPane.showMessageDialog(AddWindow.this, "Invalid input, please check your entries", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 String name = nameField.getText();
                 int capacity = Integer.parseInt(capacityField.getText());
                 String dateOfPurchase = DOPField.getText();
@@ -382,6 +414,12 @@ public class AddWindow extends JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                if (!isValidIntInput(capacityField.getText()) || !isValidDateFormat(DOPField.getText())) {
+                    JOptionPane.showMessageDialog(AddWindow.this, "Invalid input, please check your entries", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 String name = nameField.getText();
                 int capacity = Integer.parseInt(capacityField.getText());
                 String dateOfPurchase = DOPField.getText();
@@ -399,5 +437,38 @@ public class AddWindow extends JFrame {
 
         //return panel
         return displayPanel;
+    }
+
+    //input validation methods
+    private boolean isValidIntInput(String input) {
+        try {
+            int value = Integer.parseInt(input);
+            return value >= 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private boolean isValidDoubleInput(String input) {
+        try {
+            double value = Double.parseDouble(input);
+            return value >= 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    private boolean isValidDateFormat(String date) {
+        try {
+            String[] sections = date.split("/");
+            if (sections.length == 3) {
+                int day = Integer.parseInt(sections[0]);
+                int month = Integer.parseInt(sections[1]);
+                int year = Integer.parseInt(sections[2]);
+                return day >= 1 && day <= 31 && month >= 1 && month <= 12 && year >= 1000;
+            }
+            return false;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

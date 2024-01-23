@@ -1,6 +1,6 @@
 package org.example.brewerymanagement.equipment;
 
-public class Equipment {
+public abstract class Equipment {
 
     private int ID;
     private static int count = 0;

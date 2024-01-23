@@ -17,11 +17,11 @@ public abstract class Ingredient {
     }
 
     public void setQuantity(double newQuantity){
-        quantity = newQuantity;
+        this.quantity = newQuantity;
     }
 
     public double getQuantity(){
-        return quantity;
+        return this.quantity;
     }
 
     public void addQuantity(double amountToAdd){
@@ -29,13 +29,11 @@ public abstract class Ingredient {
     }
 
     public void removeQuantity(double amountToRemove){
-        System.out.println("RQ1");
         quantity -= amountToRemove;
-        System.out.println("RQ2");
     }
 
     public void setPrice(double newPrice){
-        quantity = newPrice;
+        price = newPrice;
     }
 
     public double getPrice(){

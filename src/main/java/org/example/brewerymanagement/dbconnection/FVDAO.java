@@ -1,7 +1,7 @@
 package org.example.brewerymanagement.dbconnection;
 import org.example.brewerymanagement.equipment.FermentationVessel;
 import org.example.brewerymanagement.equipment.Equipment;
-import org.example.brewerymanagement.ingredients.Hop;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

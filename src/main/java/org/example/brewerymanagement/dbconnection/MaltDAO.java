@@ -1,5 +1,4 @@
 package org.example.brewerymanagement.dbconnection;
-import org.example.brewerymanagement.ingredients.Hop;
 import org.example.brewerymanagement.ingredients.Malt;
 import java.sql.*;
 import java.util.ArrayList;

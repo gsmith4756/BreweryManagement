@@ -84,7 +84,7 @@ public class BrewWindow extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //get values from input boxes
-                String beerName = (String) beerNameBox.getText();
+                String beerName = beerNameBox.getText();
                 String selectedHops = (String) hopsNameBox.getSelectedItem();
                 String selectedMalt = (String)maltNameBox.getSelectedItem();
                 String selectedYeast = (String) yeastNameBox.getSelectedItem();
@@ -93,18 +93,23 @@ public class BrewWindow extends JFrame {
                 int maltQuantity = Integer.parseInt(maltQuantityField.getText());
                 int yeastQuantity = Integer.parseInt(yeastQuantityField.getText());
 
-                //SwingWorker to perform DB update tasks in background
+                //run inputs through validation method
+                if (!isValidQuantityInput(hopsQuantityField.getText()) ||
+                        !isValidQuantityInput(maltQuantityField.getText()) ||
+                        !isValidQuantityInput(yeastQuantityField.getText())) {
+                    JOptionPane.showMessageDialog(BrewWindow.this, "Invalid quantity input, please only enter positive numbers.");
+                    return;
+                }
+
+                //use SwingWorker to perform DB tasks in background
                 SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
                     @Override
                     protected Void doInBackground() throws Exception {
-                        System.out.println("DIB started");
                         try {
-                            System.out.println("try started");
                             updateIngredientTable("hops", selectedHops, hopQuantity);
                             updateIngredientTable("malt", selectedMalt, maltQuantity);
                             updateIngredientTable("yeast", selectedYeast, yeastQuantity);
                             updateBeersTable(beerName, selectedHops, selectedMalt, selectedYeast);
-                            System.out.println("DIB completed");
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                         }
@@ -113,15 +118,17 @@ public class BrewWindow extends JFrame {
 
                     @Override
                     protected void done() {
-                        //open main window again
-                        SwingUtilities.invokeLater(() -> new UIClass(connection));
+
+                        SwingUtilities.invokeLater(() -> {
+                            // open main window again
+                            new UIClass(connection);
+                        });
                     }
                 };
 
                 worker.execute();
             }
         });
-
 
         setVisible(true);
     }
@@ -140,15 +147,8 @@ public class BrewWindow extends JFrame {
         return comboBox;
     }
 
-    private JPanel createPanel(JLabel label, JComboBox<String> nameBox, JTextField quantityField) {
-        JPanel panel = new JPanel(new FlowLayout());
-        panel.add(label);
-        panel.add(nameBox);
-        panel.add(quantityField);
-        return panel;
-    }
 
-    private void updateIngredientTable(String tableName, String ingredientName, int usedQuantity) throws SQLException {
+    private void updateIngredientTable(String tableName, String ingredientName, double usedQuantity) throws SQLException {
         switch(tableName){
             case "hops":
                 try {
@@ -187,8 +187,6 @@ public class BrewWindow extends JFrame {
 
     private void updateBeersTable(String name, String hop, String malt, String yeast) throws SQLException {
 
-        System.out.println("running :)");
-
         Date brewDate = new Date(System.currentTimeMillis());
 
         FVDAO fvdao = new FVDAO(connection);
@@ -219,6 +217,15 @@ public class BrewWindow extends JFrame {
         } else {
 
             System.out.println("No available fermentation vessel found.");
+        }
+    }
+    //simple input validation for positive numbers only
+    private boolean isValidQuantityInput(String input) {
+        try {
+            int quantity = Integer.parseInt(input);
+            return quantity >= 0; // Accept only non-negative integers
+        } catch (NumberFormatException e) {
+            return false; // Not a valid integer
         }
     }
 }
