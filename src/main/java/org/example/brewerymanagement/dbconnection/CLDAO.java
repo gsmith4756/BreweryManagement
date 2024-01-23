@@ -54,7 +54,7 @@ public class CLDAO {
         }
     }
 
-    // Delete a CanningLine from the database
+
     public void delete(int id) throws SQLException {
         String deleteSQL = "DELETE FROM canningLines WHERE id=?";
         try (PreparedStatement statement = connection.prepareStatement(deleteSQL)) {

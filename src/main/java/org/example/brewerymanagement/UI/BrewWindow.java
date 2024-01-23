@@ -74,7 +74,7 @@ public class BrewWindow extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         inputPanel.add(brewButton, gbc);
 
-        // Create initial layout
+        //create initial layout
         setLayout(new BorderLayout());
         add(inputPanel, BorderLayout.CENTER);
 
@@ -120,7 +120,7 @@ public class BrewWindow extends JFrame {
                     protected void done() {
 
                         SwingUtilities.invokeLater(() -> {
-                            // open main window again
+                            //open main window again
                             new UIClass(connection);
                         });
                     }
@@ -149,6 +149,7 @@ public class BrewWindow extends JFrame {
 
 
     private void updateIngredientTable(String tableName, String ingredientName, double usedQuantity) throws SQLException {
+        //choose which table to update based on tableName
         switch(tableName){
             case "hops":
                 try {
@@ -223,9 +224,9 @@ public class BrewWindow extends JFrame {
     private boolean isValidQuantityInput(String input) {
         try {
             int quantity = Integer.parseInt(input);
-            return quantity >= 0; // Accept only non-negative integers
+            return quantity >= 0; //accept only positive integers
         } catch (NumberFormatException e) {
-            return false; // Not a valid integer
+            return false;
         }
     }
 }

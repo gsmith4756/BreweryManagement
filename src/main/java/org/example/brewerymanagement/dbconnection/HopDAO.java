@@ -9,14 +9,14 @@ import org.example.brewerymanagement.ingredients.Hop;
 public class HopDAO {
     private final Connection connection;
 
-    // Constructor to set the database connection
+    //constructor
     public HopDAO(Connection connection) {
         this.connection = connection;
     }
 
     //CRUD Methods for DB manipulation
 
-    // CREATE
+    //CREATE
     public void create(Hop hop) throws SQLException {
         String insertQuery = "INSERT INTO hops (name, quantity, price, harvestDate, IBU) " +
                 "VALUES (?, ?, ?, ?, ?)";
@@ -32,7 +32,7 @@ public class HopDAO {
         }
     }
 
-    // READ
+    //READ
     public Hop readID(int id) throws SQLException {
         String selectQuery = "SELECT * FROM hops WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(selectQuery)) {
@@ -46,7 +46,7 @@ public class HopDAO {
         return null;
     }
 
-    // UPDATE
+    //UPDATE
     public void update(Hop hop) throws SQLException {
         String updateQuery = "UPDATE hops SET name = ?, quantity = ?, price = ?, " +
                 "harvestDate = ?, IBU = ? WHERE id = ?";
@@ -61,7 +61,7 @@ public class HopDAO {
         }
     }
 
-    // DELETE
+    //DELETE
     public void delete(int id) throws SQLException {
         String deleteQuery = "DELETE FROM hops WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
