@@ -27,7 +27,7 @@ public class MashTun extends Equipment {
     }
 
     public boolean isInUse(){
-        return super.IsInUse();
+        return super.isInUse();
     }
 
     //Setters

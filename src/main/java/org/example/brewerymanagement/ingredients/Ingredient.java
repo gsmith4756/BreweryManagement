@@ -29,7 +29,9 @@ public abstract class Ingredient {
     }
 
     public void removeQuantity(double amountToRemove){
+        System.out.println("RQ1");
         quantity -= amountToRemove;
+        System.out.println("RQ2");
     }
 
     public void setPrice(double newPrice){

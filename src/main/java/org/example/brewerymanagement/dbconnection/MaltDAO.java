@@ -77,10 +77,10 @@ public class MaltDAO {
     //Helper methods
 
     public Malt readName(String name) {
-        String query = "SELECT * FROM malt WHERE name = ?" + name;
+        String query = "SELECT * FROM malt WHERE name = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(2, name);
+            statement.setString(1, name);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return extractMaltFromResultSet(resultSet);

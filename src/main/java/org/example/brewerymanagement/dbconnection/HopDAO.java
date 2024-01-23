@@ -48,7 +48,7 @@ public class HopDAO {
 
     // UPDATE
     public void update(Hop hop) throws SQLException {
-        String updateQuery = "UPDATE hops SET variety = ?, quantity = ?, price = ?, " +
+        String updateQuery = "UPDATE hops SET name = ?, quantity = ?, price = ?, " +
                 "harvestDate = ?, IBU = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(updateQuery)) {
             statement.setString(1, hop.getName());
@@ -75,7 +75,7 @@ public class HopDAO {
 
         Hop hop = new Hop();
         hop.setID(resultSet.getInt("id"));
-        hop.setName(resultSet.getString("variety"));
+        hop.setName(resultSet.getString("name"));
         hop.setQuantity(resultSet.getDouble("quantity"));
         hop.setPrice(resultSet.getDouble("price"));
         hop.setHarvestDate(resultSet.getString("harvestDate"));
@@ -84,13 +84,15 @@ public class HopDAO {
     }
 
     public Hop readName(String name) {
-        String query = "SELECT * FROM hops WHERE name = ?" + name;
+        String query = "SELECT * FROM hops WHERE name = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(2, name);
+            statement.setString(1, name);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return extractHopFromResultSet(resultSet);
+                }else{
+                    System.out.println("Hop not found " + name);
                 }
             }
 

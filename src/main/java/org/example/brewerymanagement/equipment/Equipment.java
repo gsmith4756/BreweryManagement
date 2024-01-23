@@ -20,7 +20,7 @@ public class Equipment {
         return ID;
     }
     public String getName() { return name; }
-    public boolean IsInUse(){ return inUse; }
+    public boolean isInUse(){ return inUse; }
     public String getDateOfPurchase(){ return dateOfPurchase;}
 
     //Setters
@@ -33,7 +33,7 @@ public class Equipment {
         this.ID = id;
     }
 
-    public void setName(String variety) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -41,7 +41,4 @@ public class Equipment {
         this.dateOfPurchase = dateOfPurchase;
     }
 
-    public boolean isInUse() {
-        return inUse;
-    }
 }

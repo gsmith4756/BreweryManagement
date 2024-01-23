@@ -104,6 +104,7 @@ public class BrewWindow extends JFrame {
                             updateIngredientTable("malt", selectedMalt, maltQuantity);
                             updateIngredientTable("yeast", selectedYeast, yeastQuantity);
                             updateBeersTable(beerName, selectedHops, selectedMalt, selectedYeast);
+                            System.out.println("DIB completed");
                         } catch (SQLException ex) {
                             ex.printStackTrace();
                         }
@@ -150,22 +151,34 @@ public class BrewWindow extends JFrame {
     private void updateIngredientTable(String tableName, String ingredientName, int usedQuantity) throws SQLException {
         switch(tableName){
             case "hops":
-                HopDAO hopDAO = new HopDAO(connection);
-                Hop readHop = hopDAO.readName(ingredientName);
-                readHop.removeQuantity(usedQuantity);
-                hopDAO.update(readHop);
+                try {
+                    HopDAO hopDAO = new HopDAO(connection);
+                    Hop readHop = hopDAO.readName(ingredientName);
+                    readHop.removeQuantity(usedQuantity);
+                    hopDAO.update(readHop);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case "malt":
-                MaltDAO maltDAO = new MaltDAO(connection);
-                Malt readMalt = maltDAO.readName(ingredientName);
-                readMalt.removeQuantity(usedQuantity);
-                maltDAO.update(readMalt);
+                try {
+                    MaltDAO maltDAO = new MaltDAO(connection);
+                    Malt readMalt = maltDAO.readName(ingredientName);
+                    readMalt.removeQuantity(usedQuantity);
+                    maltDAO.update(readMalt);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
                 break;
             case "yeast":
-                YeastDAO yeastDAO = new YeastDAO(connection);
-                Yeast readYeast = yeastDAO.readName(ingredientName);
-                readYeast.removeQuantity(usedQuantity);
-                yeastDAO.update(readYeast);
+                try {
+                    YeastDAO yeastDAO = new YeastDAO(connection);
+                    Yeast readYeast = yeastDAO.readName(ingredientName);
+                    readYeast.removeQuantity(usedQuantity);
+                    yeastDAO.update(readYeast);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
                 break;
 
         }
@@ -185,6 +198,7 @@ public class BrewWindow extends JFrame {
         if (availableFV != null) {
             availableFV.setInUse(true);
             fvdao.update(availableFV);
+            System.out.println(availableFV.getName());
 
             try {
                 String insertQuery = "INSERT INTO beersbrewing (beerName, brewDate, hopsUsed, maltUsed, yeastUsed, fvUsed) " +

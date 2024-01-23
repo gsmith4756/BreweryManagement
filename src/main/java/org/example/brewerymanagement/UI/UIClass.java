@@ -15,6 +15,8 @@ public class UIClass extends JFrame {
     String[] equipmentTables = {"canningLines", "mashTuns", "fermentationVessels"};
     String[] ingredientTitles = {"Ingredients","Hops","Malt","Yeast"};
     String[] equipmentTitles = {"Equipment","Canning Lines","Mash Tuns", "Fermentation Vessels"};
+    String[] beerTable = {"beersbrewing"};
+    String[] beerTitle = {"Beers Brewing","Beers"};
 
     public UIClass(Connection connection) {
         this.connection=connection;
@@ -23,16 +25,18 @@ public class UIClass extends JFrame {
 
         setTitle("Brewery Management");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(950, 800);
+        setSize(1250, 800);
         setLayout(new GridLayout(0,1));
 
         //create panels for Ingredients and Equipment subclasses
         JPanel ingredientPanel = fetchData(ingredientTitles,ingredientsTables);
         JPanel equipmentPanel = fetchData(equipmentTitles,equipmentTables);
+        JPanel beersPanel = fetchData(beerTitle,beerTable);
 
         //add the panels to the main panel
         mainPanel.add(ingredientPanel,BorderLayout.WEST);
-        mainPanel.add(equipmentPanel,BorderLayout.EAST);
+        mainPanel.add(equipmentPanel,BorderLayout.CENTER);
+        mainPanel.add(beersPanel,BorderLayout.EAST);
 
         //create brew button
         JButton brewButton = new JButton("Brew");
@@ -102,6 +106,8 @@ public class UIClass extends JFrame {
                 e.printStackTrace();
             }
         }
+
+
 
         //add title labels
         JLabel titleLabel = new JLabel(titles[0]);

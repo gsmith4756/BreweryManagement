@@ -82,10 +82,10 @@ public class YeastDAO {
     //helper methods
 
     public Yeast readName(String name) {
-        String query = "SELECT * FROM yeast WHERE name = ?" + name;
+        String query = "SELECT * FROM yeast WHERE name = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(2, name);
+            statement.setString(1, name);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return extractYeastFromResultSet(resultSet);

@@ -20,11 +20,12 @@ public class FVDAO {
 
     //CRUD methods
     public void create(FermentationVessel fv) throws SQLException {
-        String insertSQL = "INSERT INTO fermentationvessels (name, dateOfPurchase, capacity) VALUES (?, ?, ?)";
+        String insertSQL = "INSERT INTO fermentationvessels (name, dateOfPurchase, capacity, inUse) VALUES (?, ?, ?,?)";
         try (PreparedStatement statement = connection.prepareStatement(insertSQL)) {
             statement.setString(1, fv.getName());
             statement.setString(2, fv.getDateOfPurchase());
             statement.setInt(3, fv.getCapacity());
+            statement.setBoolean(4, fv.isInUse());
             statement.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
