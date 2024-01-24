@@ -31,8 +31,8 @@ Hello! Thanks for checking out this project. This project is a simple Brewery Ma
 
 2. Build project in Maven
 
-cd BreweryManagement
-mvn clean install
+    cd BreweryManagement
+    mvn clean package
 
 3. Create mySQL database
 
@@ -74,7 +74,8 @@ mvn clean install
 
 ## Usage
 
-java -jar target/BreweryManagement.jar
+Use this command from the command line (make sure you are in the \target folder)
+java -jar BreweryManagement-1.0-SNAPSHOT.jar
 
 Please add all of the hops, yeast, malt and equipment you have within the brewery and then use the "Brew" button to brew a beer using the quantities you specify. The application will automatically pick an available fermentation vessel once you press brew again.
 
